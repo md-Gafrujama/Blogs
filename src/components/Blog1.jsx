@@ -23,13 +23,15 @@ const Blog1 = () => {
     setCurrentUrl(url);
   }, []);
 
-  // Enhanced LinkedIn sharing function with better URL encoding
+  // Enhanced LinkedIn sharing function with proper metadata
   const shareOnLinkedIn = () => {
     const shareUrl = encodeURIComponent(currentUrl || blogData.url);
     const shareTitle = encodeURIComponent(blogData.title);
-    const shareDescription = encodeURIComponent(blogData.description);
+    const shareSummary = encodeURIComponent(blogData.description);
+    const shareSource = encodeURIComponent(blogData.siteName);
     
-    const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}&title=${shareTitle}&summary=${shareDescription}`;
+    // LinkedIn share URL with all metadata parameters
+    const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}&title=${shareTitle}&summary=${shareSummary}&source=${shareSource}`;
     
     const width = 600;
     const height = 650;
