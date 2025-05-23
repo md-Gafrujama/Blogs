@@ -153,7 +153,7 @@ const shareOnLinkedIn = () => {
       <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gray-900 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-70"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80')" }}
+          style={{ backgroundImage: "url('https://cdn.prod.website-files.com/66f7a9d0051c2479948b26d7/67f51de763ee74ac30e6c6b4_CF%20Blog%20(2).png')" }}
         ></div>
         
         <div className="relative h-full flex flex-col justify-center items-start p-6 md:p-10 lg:p-16 text-white">
