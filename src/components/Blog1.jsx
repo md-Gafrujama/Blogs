@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 
 const Blog1 = () => {
   const [email, setEmail] = useState("");
@@ -10,24 +9,28 @@ const Blog1 = () => {
   // Blog post metadata
   const blogData = {
     title: "The AI Illusion: B2B Marketers Need Better Questions, Not More Hype",
-    description: "Key insights on AI in B2B Marketing: 1) Bad Data = Bad AI - first-party data is critical, 2) Beware of AI-washing in vendor tools, 3) Targeting precision matters as budgets shrink.",
+    description: "Key insights on AI in B2B Marketing: Bad Data = Bad AI - first-party data is critical, Beware of AI-washing in vendor tools, Targeting precision matters as budgets shrink.",
     image: "https://cdn.prod.website-files.com/66f7a9d0051c2479948b26d7/67f51de763ee74ac30e6c6b4_CF%20Blog%20(2).png",
     siteName: "Compare Bazaar",
     author: "Compare Bazaar Team",
-    publishedDate: "2025-05-02T08:00:00Z"
+    publishedDate: "2025-05-02T08:00:00Z",
+    url: "https://comparebazaar.com/blog/ai-illusion-b2b-marketers"
   };
 
   useEffect(() => {
     // Set the current URL when component mounts
-    setCurrentUrl(window.location.href);
+    const url = window.location.href || blogData.url;
+    setCurrentUrl(url);
   }, []);
 
-  // Enhanced LinkedIn sharing function
+  // Enhanced LinkedIn sharing function with better URL encoding
   const shareOnLinkedIn = () => {
-    // LinkedIn sharing works best with the simple share URL
-    const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
+    const shareUrl = encodeURIComponent(currentUrl || blogData.url);
+    const shareTitle = encodeURIComponent(blogData.title);
+    const shareDescription = encodeURIComponent(blogData.description);
     
-    // Calculate centered position for popup
+    const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}&title=${shareTitle}&summary=${shareDescription}`;
+    
     const width = 600;
     const height = 650;
     const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
@@ -37,7 +40,6 @@ const Blog1 = () => {
     const left = (windowWidth - width) / 2 + dualScreenLeft;
     const top = (windowHeight - height) / 2 + dualScreenTop;
 
-    // Window features string
     const features = [
       `width=${width}`,
       `height=${height}`,
@@ -53,13 +55,11 @@ const Blog1 = () => {
       'copyhistory=no'
     ].join(',');
 
-    // Open LinkedIn share window
     const newWindow = window.open(linkedInShareUrl, 'LinkedInShare', features);
     
     if (newWindow) {
       newWindow.focus();
     } else {
-      // Fallback: open in same tab if popup is blocked
       window.open(linkedInShareUrl, '_blank');
     }
   };
@@ -67,7 +67,7 @@ const Blog1 = () => {
   // Twitter sharing function
   const shareOnTwitter = () => {
     const twitterText = `${blogData.title}\n\n${blogData.description}`;
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(currentUrl)}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(currentUrl || blogData.url)}`;
     
     const width = 550;
     const height = 420;
@@ -81,7 +81,7 @@ const Blog1 = () => {
 
   // Facebook sharing function
   const shareOnFacebook = () => {
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl || blogData.url)}`;
     
     const width = 600;
     const height = 400;
@@ -100,10 +100,9 @@ const Blog1 = () => {
         await navigator.share({
           title: blogData.title,
           text: blogData.description,
-          url: currentUrl,
+          url: currentUrl || blogData.url,
         });
       } else {
-        // Fallback for desktop browsers
         shareOnLinkedIn();
       }
     } catch (error) {
@@ -114,12 +113,11 @@ const Blog1 = () => {
   // Copy link to clipboard
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(currentUrl);
+      await navigator.clipboard.writeText(currentUrl || blogData.url);
       alert("Link copied to clipboard!");
     } catch (error) {
-      // Fallback for older browsers
       const textArea = document.createElement("textarea");
-      textArea.value = currentUrl;
+      textArea.value = currentUrl || blogData.url;
       document.body.appendChild(textArea);
       textArea.focus();
       textArea.select();
@@ -171,82 +169,8 @@ const Blog1 = () => {
   };
 
   return (
-    <>
-      <Helmet>
-        {/* Primary Meta Tags */}
-        <title>{blogData.title}</title>
-        <meta name="title" content={blogData.title} />
-        <meta name="description" content={blogData.description} />
-        <meta name="author" content={blogData.author} />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={currentUrl} />
-
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={currentUrl} />
-        <meta property="og:title" content={blogData.title} />
-        <meta property="og:description" content={blogData.description} />
-        <meta property="og:image" content={blogData.image} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content={blogData.title} />
-        <meta property="og:site_name" content={blogData.siteName} />
-        <meta property="og:locale" content="en_US" />
-        <meta property="article:author" content={blogData.author} />
-        <meta property="article:published_time" content={blogData.publishedDate} />
-        <meta property="article:section" content="B2B Marketing" />
-        <meta property="article:tag" content="AI Marketing" />
-        <meta property="article:tag" content="B2B Strategy" />
-        <meta property="article:tag" content="Data-Driven Marketing" />
-
-        {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={currentUrl} />
-        <meta property="twitter:title" content={blogData.title} />
-        <meta property="twitter:description" content={blogData.description} />
-        <meta property="twitter:image" content={blogData.image} />
-        <meta property="twitter:image:alt" content={blogData.title} />
-        <meta name="twitter:creator" content="@CompareBazaar" />
-        <meta name="twitter:site" content="@CompareBazaar" />
-
-        {/* LinkedIn specific */}
-        <meta property="og:image:secure_url" content={blogData.image} />
-        <meta property="og:updated_time" content={blogData.publishedDate} />
-        
-        {/* Additional SEO Meta Tags */}
-        <meta name="keywords" content="AI Marketing, B2B Strategy, Data-Driven Marketing, First-Party Data, Marketing Technology, Intent Data, B2B Lead Generation" />
-        <meta name="theme-color" content="#ff8633" />
-        
-        {/* Structured Data */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": blogData.title,
-            "description": blogData.description,
-            "image": blogData.image,
-            "author": {
-              "@type": "Organization",
-              "name": blogData.author
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": blogData.siteName,
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://cdn.prod.website-files.com/66f7a9d0051c2479948b26d7/logo.png"
-              }
-            },
-            "datePublished": blogData.publishedDate,
-            "dateModified": blogData.publishedDate,
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": currentUrl
-            }
-          })}
-        </script>
-      </Helmet>
-
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
       <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gray-900 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-70"
@@ -266,6 +190,7 @@ const Blog1 = () => {
         </div>
       </div>
 
+      {/* Main Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white overflow-hidden">
           <div className="p-6 md:p-8">
@@ -284,7 +209,9 @@ const Blog1 = () => {
           </div>
         </div>
       </div>
-<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-20">
+
+      {/* Key Points Section */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-20">
         <div className="bg-white overflow-hidden">
           <div className="p-6 md:p-8">
             <h2 className="text-3xl font-semibold text-gray-800">
@@ -338,6 +265,7 @@ const Blog1 = () => {
         </div>
       </div>
 
+      {/* Action Items Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="overflow-hidden">
           <div className="bg-white p-6">
@@ -376,7 +304,8 @@ const Blog1 = () => {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-15 pb-10">
+      {/* Final Section with Subscribe */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
         <div className="flex flex-col lg:flex-row gap-12">
           <div className="lg:w-1/2">
             <div className="text-left">
@@ -390,7 +319,7 @@ const Blog1 = () => {
                 </p>
                 
                 <p className="text-base leading-relaxed mb-6">
-                  That's where we're focused at <span className="font-semibold text-[#ff8633]">Compare Bazaar</span>: fewer assumptions, smarter execution, and real outcomes.
+                  That's where we're focused at <span className="font-semibold text-orange-500">Compare Bazaar</span>: fewer assumptions, smarter execution, and real outcomes.
                 </p>
                 
                 <p className="text-base leading-relaxed font-semibold text-gray-900">
@@ -446,7 +375,7 @@ const Blog1 = () => {
                 <button
                   onClick={handleSubscribe}
                   disabled={loading}
-                  className="w-full bg-[#ff8633] cursor-pointer text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-200 transform hover:scale-[1.02] mt-4 disabled:opacity-70 disabled:hover:scale-100"
+                  className="w-full bg-orange-500 cursor-pointer text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-200 transform hover:scale-[1.02] mt-4 disabled:opacity-70 disabled:hover:scale-100"
                 >
                   {loading ? "Subscribing..." : subscribed ? "Subscribed ✅" : "Subscribe"}
                 </button>
@@ -454,12 +383,11 @@ const Blog1 = () => {
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <p className="text-sm text-gray-600 mb-4 font-semibold">Share this article:</p>
                   
-                  {/* Enhanced sharing section with multiple options */}
                   <div className="grid grid-cols-1 gap-3">
                     {/* LinkedIn sharing button */}
                     <button
                       onClick={shareOnLinkedIn}
-                      className="cursor-pointer flex items-center justify-center gap-3 w-full bg-[#0A66C2] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 hover:bg-[#004182] hover:shadow-lg transform hover:scale-[1.02]"
+                      className="cursor-pointer flex items-center justify-center gap-3 w-full bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 hover:bg-blue-800 hover:shadow-lg transform hover:scale-[1.02]"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
@@ -470,7 +398,7 @@ const Blog1 = () => {
                     {/* Twitter sharing button */}
                     <button
                       onClick={shareOnTwitter}
-                      className="cursor-pointer flex items-center justify-center gap-3 w-full bg-[#1DA1F2] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 hover:bg-[#0d8bd9] hover:shadow-lg transform hover:scale-[1.02]"
+                      className="cursor-pointer flex items-center justify-center gap-3 w-full bg-sky-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 hover:bg-sky-600 hover:shadow-lg transform hover:scale-[1.02]"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
@@ -481,7 +409,7 @@ const Blog1 = () => {
                     {/* Facebook sharing button */}
                     <button
                       onClick={shareOnFacebook}
-                      className="cursor-pointer flex items-center justify-center gap-3 w-full bg-[#1877F2] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 hover:bg-[#166fe5] hover:shadow-lg transform hover:scale-[1.02]"
+                      className="cursor-pointer flex items-center justify-center gap-3 w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 hover:bg-blue-700 hover:shadow-lg transform hover:scale-[1.02]"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
@@ -489,10 +417,10 @@ const Blog1 = () => {
                       Share on Facebook
                     </button>
                     
-                    {/* Universal Share button (works on mobile) */}
+                    {/* Universal Share button */}
                     <button
                       onClick={shareContent}
-                      className="cursor-pointer flex items-center justify-center gap-3 w-full bg-[#ff8633] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 hover:bg-[#e67a2e] hover:shadow-lg transform hover:scale-[1.02]"
+                      className="cursor-pointer flex items-center justify-center gap-3 w-full bg-orange-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 hover:bg-orange-600 hover:shadow-lg transform hover:scale-[1.02]"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
@@ -518,19 +446,7 @@ const Blog1 = () => {
           </div>
         </div>
       </div>
-      {/* Debug information (remove in production) */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">Debug Info (Development Only):</h4>
-            <p className="text-sm text-gray-700">Current URL: {currentUrl}</p>
-            <p className="text-sm text-gray-700">Image URL: {blogData.image}</p>
-            <p className="text-sm text-gray-700">Title: {blogData.title}</p>
-            <p className="text-sm text-gray-700">Description: {blogData.description}</p>
-          </div>
-        </div>
-      )}
-    </>
+    </div>
   );
 };
 
