@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
-
 const Blog1 = () => {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -13,70 +12,52 @@ const Blog1 = () => {
     setCurrentUrl(window.location.href);
   }, []);
 
-  // Improved LinkedIn sharing function
-const shareOnLinkedIn = () => {
-  const title = "The AI Illusion: B2B Marketers Need Better Questions, Not More Hype";
-  const summary = "Key insights on AI in B2B Marketing: 1) Bad Data = Bad AI - first-party data is critical, 2) Beware of AI-washing in vendor tools, 3) Targeting precision matters as budgets shrink.";
-  const imageUrl = "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80";
-  const source = "Compare Bazaar";
+  // Fixed LinkedIn sharing function
+  const shareOnLinkedIn = () => {
+    const url = encodeURIComponent(currentUrl);
+    const title = encodeURIComponent("The AI Illusion: B2B Marketers Need Better Questions, Not More Hype");
+    const summary = encodeURIComponent("Key insights on AI in B2B Marketing: 1) Bad Data = Bad AI - first-party data is critical, 2) Beware of AI-washing in vendor tools, 3) Targeting precision matters as budgets shrink.");
+    
+    // Use the newer LinkedIn share URL format
+    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+    
+    // Calculate centered position
+    const width = 600;
+    const height = 600;
+    const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
+    const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
+    const windowWidth = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    const windowHeight = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+    const left = (windowWidth - width) / 2 + dualScreenLeft;
+    const top = (windowHeight - height) / 2 + dualScreenTop;
 
-  // Log the values before encoding
-  console.log("Pre-encoded values:", {
-    currentUrl,
-    title,
-    summary,
-    imageUrl,
-    source
-  });
+    // Window features string
+    const features = [
+      `width=${width}`,
+      `height=${height}`,
+      `top=${top}`,
+      `left=${left}`,
+      'toolbar=no',
+      'location=no',
+      'directories=no',
+      'status=no',
+      'menubar=no',
+      'scrollbars=yes',
+      'resizable=yes',
+      'copyhistory=no'
+    ].join(',');
 
-  // Construct share URL
-  const shareUrl = new URL("https://www.linkedin.com/sharing/share-offsite/");
-  shareUrl.searchParams.append("url", currentUrl);
-  shareUrl.searchParams.append("title", title);
-  shareUrl.searchParams.append("summary", summary);
-  shareUrl.searchParams.append("source", source);
-
-  // Log the constructed URL
-  console.log("Constructed share URL:", shareUrl.toString());
-  console.log("URL search params:", Object.fromEntries(shareUrl.searchParams.entries()));
-
-  // Calculate centered position
-  const width = 600;
-  const height = 600;
-  const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
-  const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
-  const windowWidth = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-  const windowHeight = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-  const left = (windowWidth - width) / 2 + dualScreenLeft;
-  const top = (windowHeight - height) / 2 + dualScreenTop;
-
-  // Window features string
-  const features = [
-    `width=${width}`,
-    `height=${height}`,
-    `top=${top}`,
-    `left=${left}`,
-    'toolbar=no',
-    'location=no',
-    'directories=no',
-    'status=no',
-    'menubar=no',
-    'scrollbars=no',
-    'resizable=no',
-    'copyhistory=no'
-  ].join(',');
-
-  // Open window
-  console.log("Attempting to open share window with URL:", shareUrl.toString());
-  const newWindow = window.open(shareUrl.toString(), 'LinkedInShare', features);
-  
-  if (newWindow) {
-    console.log("Share window opened successfully");
-    newWindow.focus();
-  } else {
-    console.error("Failed to open share window - possibly blocked by popup blocker");
-  }
-};
+    // Open window
+    const newWindow = window.open(linkedInUrl, 'LinkedInShare', features);
+    
+    if (newWindow) {
+      newWindow.focus();
+    } else {
+      console.error("Failed to open share window - possibly blocked by popup blocker");
+      // Fallback: open in same tab
+      window.open(linkedInUrl, '_blank');
+    }
+  };
 
   // Alternative sharing method using navigator.share API for mobile devices
   const shareContent = async () => {
@@ -138,17 +119,34 @@ const shareOnLinkedIn = () => {
 
   return (
     <>
-
-   <Helmet>
-      <title>The AI Illusion: B2B Marketers Need Better Questions, Not More Hype</title>
-      <meta property="og:title" content="The AI Illusion: B2B Marketers Need Better Questions, Not More Hype" />
-      <meta property="og:description" content="Key insights on AI in B2B Marketing: 1) Bad Data = Bad AI - first-party data is critical, 2) Beware of AI-washing in vendor tools, 3) Targeting precision matters as budgets shrink." />
-      <meta property="og:image" content="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" />
-      <meta property="og:url" content={currentUrl} />
-      <meta property="og:type" content="article" />
-      <meta property="og:site_name" content="Compare Bazaar" />
-      <meta name="twitter:card" content="summary_large_image" />
-    </Helmet>
+      <Helmet>
+        <title>The AI Illusion: B2B Marketers Need Better Questions, Not More Hype</title>
+        <meta name="description" content="Key insights on AI in B2B Marketing: Bad Data = Bad AI, first-party data is critical, beware of AI-washing in vendor tools, and targeting precision matters as budgets shrink." />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="The AI Illusion: B2B Marketers Need Better Questions, Not More Hype" />
+        <meta property="og:description" content="Key insights on AI in B2B Marketing: Bad Data = Bad AI, first-party data is critical, beware of AI-washing in vendor tools, and targeting precision matters as budgets shrink." />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:site_name" content="Compare Bazaar" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="The AI Illusion: B2B Marketers Need Better Questions, Not More Hype" />
+        <meta name="twitter:description" content="Key insights on AI in B2B Marketing: Bad Data = Bad AI, first-party data is critical, beware of AI-washing in vendor tools, and targeting precision matters as budgets shrink." />
+        <meta name="twitter:image" content="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" />
+        
+        {/* LinkedIn specific */}
+        <meta property="linkedin:owner" content="Compare Bazaar" />
+        
+        {/* Additional SEO */}
+        <meta name="author" content="Compare Bazaar" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={currentUrl} />
+      </Helmet>
 
       <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gray-900 overflow-hidden">
         <div 
