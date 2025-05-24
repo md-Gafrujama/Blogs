@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import WideDiv from './WideDiv';
+import Navbar from './Navbar';
 
 export default function BlogLayout() {
   // Blog post data with image URLs and slug/URL paths
@@ -114,6 +116,8 @@ export default function BlogLayout() {
   ];
 
   return (
+    <>
+    <Navbar />
     <div className="min-h-screen bg-gray-100">
       {/* Enhanced Header with Advanced SVG elements */}
       <div 
@@ -442,6 +446,9 @@ export default function BlogLayout() {
         </div>
       </div>
     </div>
+     <WideDiv />
+    </>
+
   );
 }
 
@@ -477,5 +484,6 @@ function BlogCard({ post }) {
         </a>
       </div>
     </div>
+   
   );
 }
