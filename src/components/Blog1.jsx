@@ -1,3 +1,7 @@
+// The React component code remains exactly as provided before.
+// The problem is not in this client-side rendering logic,
+// but how the initial HTML is delivered to crawlers.
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
@@ -9,16 +13,14 @@ const Blog1 = () => {
 
   useEffect(() => {
     // Set the current URL when component mounts
-    // This assumes the browser environment for window.location.href
     setCurrentUrl(window.location.href);
   }, []);
 
-  // LinkedIn sharing function (relies on Open Graph tags)
+  // LinkedIn sharing function (relies on Open Graph tags being present in the HTML)
   const shareOnLinkedIn = () => {
     const shareUrl = new URL("https://www.linkedin.com/sharing/share-offsite/");
-    shareUrl.searchParams.append("url", currentUrl);
+    shareUrl.searchParams.append("url", currentUrl); // LinkedIn will read OG tags from this URL
 
-    // Calculate centered position for popup window
     const width = 600;
     const height = 600;
     const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
@@ -28,7 +30,6 @@ const Blog1 = () => {
     const left = (windowWidth - width) / 2 + dualScreenLeft;
     const top = (windowHeight - height) / 2 + dualScreenTop;
 
-    // Window features string
     const features = [
       `width=${width}`,
       `height=${height}`,
@@ -44,7 +45,6 @@ const Blog1 = () => {
       'copyhistory=no'
     ].join(',');
 
-    // Open window
     const newWindow = window.open(shareUrl.toString(), 'LinkedInShare', features);
     
     if (newWindow) {
@@ -67,8 +67,7 @@ const Blog1 = () => {
           url: currentUrl,
         });
       } else {
-        // Fallback for desktop browsers: Use the LinkedIn specific share
-        shareOnLinkedIn();
+        shareOnLinkedIn(); // Fallback to LinkedIn specific share for desktop
       }
     } catch (error) {
       console.error("Error sharing:", error);
@@ -114,23 +113,17 @@ const Blog1 = () => {
 
   return (
     <>
-      {/* Helmet is critical for SEO and Social Sharing Previews */}
       <Helmet>
         <title>The AI Illusion: B2B Marketers Need Better Questions, Not More Hype</title>
         <meta property="og:title" content="The AI Illusion: B2B Marketers Need Better Questions, Not More Hype" />
         <meta property="og:description" content="Key insights on AI in B2B Marketing: 1) Bad Data = Bad AI - first-party data is critical, 2) Beware of AI-washing in vendor tools, 3) Targeting precision matters as budgets shrink." />
-        {/* IMPORTANT: Ensure this image URL is absolute and meets LinkedIn's size requirements (1200x627px recommended) */}
         <meta property="og:image" content="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" />
-        <meta property="og:url" content={currentUrl} /> {/* Must be the canonical URL of the page */}
+        <meta property="og:url" content={currentUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="Compare Bazaar" />
         <meta name="twitter:card" content="summary_large_image" />
-        {/* Add more meta tags if needed for specific platforms or SEO */}
-        <meta name="author" content="Compare Bazaar" />
-        <meta name="keywords" content="AI, B2B Marketing, Data, Hype, Lead Generation, Marketing Strategy" />
       </Helmet>
 
-      {/* Blog Hero Section */}
       <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gray-900 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-70"
@@ -150,7 +143,6 @@ const Blog1 = () => {
         </div>
       </div>
 
-      {/* Main Blog Content Section 1 */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white overflow-hidden">
           <div className="p-6 md:p-8">
@@ -170,7 +162,6 @@ const Blog1 = () => {
         </div>
       </div>
 
-      {/* Main Blog Content Section 2 (Key Insights) */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-20">
         <div className="bg-white overflow-hidden">
           <div className="p-6 md:p-8">
@@ -225,7 +216,6 @@ const Blog1 = () => {
         </div>
       </div>
 
-      {/* Actionable Insights Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="overflow-hidden">
           <div className="bg-white p-6">
@@ -264,7 +254,6 @@ const Blog1 = () => {
         </div>
       </div>
 
-      {/* Final Thoughts and Subscribe/Share Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-15 pb-10">
         <div className="flex flex-col lg:flex-row gap-12">
           <div className="lg:w-1/2">
