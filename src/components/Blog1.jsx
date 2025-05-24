@@ -119,7 +119,7 @@ const Blog1 = () => {
 
   // Twitter sharing function
   const shareOnTwitter = () => {
-    const twitterText = `${blogData.title}`;
+    const twitterText = `${blogData.title} - ${blogData.description.substring(0, 100)}...`;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(currentUrl || blogData.url)}`;
     
     const width = 550;
@@ -156,7 +156,10 @@ const Blog1 = () => {
           url: currentUrl || blogData.url,
         });
       } else {
-        shareOnLinkedIn();
+        // Fallback for desktop
+        const textToShare = `${blogData.title}\n\n${blogData.description}\n\nRead more: ${currentUrl || blogData.url}`;
+        await navigator.clipboard.writeText(textToShare);
+        alert("Blog content copied to clipboard! You can now paste it anywhere.");
       }
     } catch (error) {
       console.error("Error sharing:", error);
