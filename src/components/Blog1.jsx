@@ -78,11 +78,10 @@ const Blog1 = () => {
   const shareOnLinkedIn = () => {
     const shareUrl = encodeURIComponent(currentUrl || blogData.url);
     const shareTitle = encodeURIComponent(blogData.title);
-    const shareSummary = encodeURIComponent(blogData.description);
-    const shareSource = encodeURIComponent(blogData.siteName);
+    const shareText = encodeURIComponent(`${blogData.title}\n\n${blogData.description}`);
     
-    // LinkedIn share URL - LinkedIn will read Open Graph tags from the actual page
-    const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
+    // LinkedIn share URL with title and summary
+    const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}&title=${shareTitle}&summary=${encodeURIComponent(blogData.description)}`;
     
     const width = 600;
     const height = 650;
@@ -117,9 +116,9 @@ const Blog1 = () => {
     }
   };
 
-  // Twitter sharing function
+  // Twitter sharing function with title and description
   const shareOnTwitter = () => {
-    const twitterText = `${blogData.title} - ${blogData.description.substring(0, 100)}...`;
+    const twitterText = `${blogData.title}\n\n${blogData.description}`;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(currentUrl || blogData.url)}`;
     
     const width = 550;
@@ -132,9 +131,9 @@ const Blog1 = () => {
     window.open(twitterUrl, 'TwitterShare', features);
   };
 
-  // Facebook sharing function
+  // Facebook sharing function with proper parameters
   const shareOnFacebook = () => {
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl || blogData.url)}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl || blogData.url)}&quote=${encodeURIComponent(blogData.title + ' - ' + blogData.description)}`;
     
     const width = 600;
     const height = 400;
@@ -156,10 +155,7 @@ const Blog1 = () => {
           url: currentUrl || blogData.url,
         });
       } else {
-        // Fallback for desktop
-        const textToShare = `${blogData.title}\n\n${blogData.description}\n\nRead more: ${currentUrl || blogData.url}`;
-        await navigator.clipboard.writeText(textToShare);
-        alert("Blog content copied to clipboard! You can now paste it anywhere.");
+        shareOnLinkedIn();
       }
     } catch (error) {
       console.error("Error sharing:", error);
