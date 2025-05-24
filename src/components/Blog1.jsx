@@ -143,7 +143,7 @@ const shareOnLinkedIn = () => {
       <title>The AI Illusion: B2B Marketers Need Better Questions, Not More Hype</title>
       <meta property="og:title" content="The AI Illusion: B2B Marketers Need Better Questions, Not More Hype" />
       <meta property="og:description" content="Key insights on AI in B2B Marketing: 1) Bad Data = Bad AI - first-party data is critical, 2) Beware of AI-washing in vendor tools, 3) Targeting precision matters as budgets shrink." />
-      <meta property="og:image" content="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" />
+      <meta property="og:image" content="" />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:type" content="article" />
       <meta property="og:site_name" content="Compare Bazaar" />
@@ -153,7 +153,7 @@ const shareOnLinkedIn = () => {
       <div className="relative w-full h-64 md:h-80 lg:h-96 bg-gray-900 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-70"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80')" }}
+          style={{ backgroundImage: "url('/images/blog1.jpg')" }}
         ></div>
         
         <div className="relative h-full flex flex-col justify-center items-start p-6 md:p-10 lg:p-16 text-white">
