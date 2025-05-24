@@ -10,7 +10,7 @@ export default function BlogLayout() {
   date: "May 3, 2023",
   readTime: "2 min read",
   category: "AI",
-  imageUrl: "/images/blog1.jpg",
+  imageUrl: "https://blogs.compare-bazaar.com/images/blog1.jpg",
   slug: "/blog1"
 },
     {
