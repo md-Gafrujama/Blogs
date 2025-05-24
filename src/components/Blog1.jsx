@@ -10,7 +10,7 @@ const Blog1 = () => {
   const blogData = {
     title: "The AI Illusion: B2B Marketers Need Better Questions, Not More Hype",
     description: "Key insights on AI in B2B Marketing: Bad Data = Bad AI - first-party data is critical, Beware of AI-washing in vendor tools, Targeting precision matters as budgets shrink.",
-    image: "https://cdn.prod.website-files.com/66f7a9d0051c2479948b26d7/67f51de763ee74ac30e6c6b4_CF%20Blog%20(2).png",
+    image: "/images/blog1.jpg",
     siteName: "Compare Bazaar",
     author: "Compare Bazaar Team",
     publishedDate: "2025-05-02T08:00:00Z",

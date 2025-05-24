@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 export default function BlogLayout() {
   // Blog post data with image URLs and slug/URL paths
   const blogPosts = [
-    {
-      id: 1,
-      title: "The AI Blueprint Series — Strategies, Use-Cases, and More Hype",
-      date: "May 3, 2023",
-      readTime: "2 min read",
-      category: "AI",
-      imageUrl: "https://cdn.prod.website-files.com/66f7a9d0051c2479948b26d7/67f51de763ee74ac30e6c6b4_CF%20Blog%20(2).png",
-      slug: "/blog1"
-    },
+  {
+  id: 1,
+  title: "The AI Blueprint Series — Strategies, Use-Cases, and More Hype",
+  date: "May 3, 2023",
+  readTime: "2 min read",
+  category: "AI",
+  imageUrl: "/images/blog1.jpg",
+  slug: "/blog1"
+},
     {
       id: 2,
       title: "The Power of Storytelling in Modern B2B Marketing",
