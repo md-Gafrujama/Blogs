@@ -10,28 +10,79 @@ const Blog1 = () => {
   const blogData = {
     title: "The AI Illusion: B2B Marketers Need Better Questions, Not More Hype",
     description: "Key insights on AI in B2B Marketing: Bad Data = Bad AI - first-party data is critical, Beware of AI-washing in vendor tools, Targeting precision matters as budgets shrink.",
-    image: "/images/blog1.jpg",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630&fit=crop&auto=format",
     siteName: "Compare Bazaar",
     author: "Compare Bazaar Team",
     publishedDate: "2025-05-02T08:00:00Z",
-    url: "https://comparebazaar.com/blog/ai-illusion-b2b-marketers"
+    url: "https://comparebazaar.com/blog/ai-illusion-b2b-marketers",
+    type: "article"
   };
 
   useEffect(() => {
     // Set the current URL when component mounts
     const url = window.location.href || blogData.url;
     setCurrentUrl(url);
+    
+    // Update meta tags for social sharing
+    updateMetaTags();
   }, []);
 
-  // Enhanced LinkedIn sharing function with proper metadata
+  // Function to update meta tags dynamically
+  const updateMetaTags = () => {
+    // Update or create meta tags
+    const metaTags = [
+      { property: 'og:title', content: blogData.title },
+      { property: 'og:description', content: blogData.description },
+      { property: 'og:image', content: blogData.image },
+      { property: 'og:url', content: currentUrl || blogData.url },
+      { property: 'og:type', content: blogData.type },
+      { property: 'og:site_name', content: blogData.siteName },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: blogData.title },
+      { name: 'twitter:description', content: blogData.description },
+      { name: 'twitter:image', content: blogData.image },
+      { name: 'description', content: blogData.description },
+      { property: 'article:author', content: blogData.author },
+      { property: 'article:published_time', content: blogData.publishedDate }
+    ];
+
+    metaTags.forEach(tag => {
+      let element = null;
+      
+      if (tag.property) {
+        element = document.querySelector(`meta[property="${tag.property}"]`);
+        if (!element) {
+          element = document.createElement('meta');
+          element.setAttribute('property', tag.property);
+          document.head.appendChild(element);
+        }
+      } else if (tag.name) {
+        element = document.querySelector(`meta[name="${tag.name}"]`);
+        if (!element) {
+          element = document.createElement('meta');
+          element.setAttribute('name', tag.name);
+          document.head.appendChild(element);
+        }
+      }
+      
+      if (element) {
+        element.setAttribute('content', tag.content);
+      }
+    });
+
+    // Update page title
+    document.title = blogData.title;
+  };
+
+  // Enhanced LinkedIn sharing function
   const shareOnLinkedIn = () => {
     const shareUrl = encodeURIComponent(currentUrl || blogData.url);
     const shareTitle = encodeURIComponent(blogData.title);
     const shareSummary = encodeURIComponent(blogData.description);
     const shareSource = encodeURIComponent(blogData.siteName);
     
-    // LinkedIn share URL with all metadata parameters
-    const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}&title=${shareTitle}&summary=${shareSummary}&source=${shareSource}`;
+    // LinkedIn share URL - LinkedIn will read Open Graph tags from the actual page
+    const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`;
     
     const width = 600;
     const height = 650;
@@ -68,7 +119,7 @@ const Blog1 = () => {
 
   // Twitter sharing function
   const shareOnTwitter = () => {
-    const twitterText = `${blogData.title}\n\n${blogData.description}`;
+    const twitterText = `${blogData.title}`;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(currentUrl || blogData.url)}`;
     
     const width = 550;
@@ -112,11 +163,17 @@ const Blog1 = () => {
     }
   };
 
-  // Copy link to clipboard
+  // Copy link to clipboard with enhanced feedback
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(currentUrl || blogData.url);
-      alert("Link copied to clipboard!");
+      // Show temporary success message
+      const button = event.target.closest('button');
+      const originalText = button.innerHTML;
+      button.innerHTML = button.innerHTML.replace('Copy Link', 'Copied! ✅');
+      setTimeout(() => {
+        button.innerHTML = originalText;
+      }, 2000);
     } catch (error) {
       const textArea = document.createElement("textarea");
       textArea.value = currentUrl || blogData.url;
