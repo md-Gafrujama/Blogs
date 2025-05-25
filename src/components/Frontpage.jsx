@@ -108,7 +108,39 @@ export default function BlogLayout() {
       views: Math.floor(Math.random() * 500 + 100),
       likes: Math.floor(Math.random() * 200 + 50)
     },
-  
+    {
+      id: 4,
+      title: "Blockchain Security: Protecting Your Digital Assets",
+      date: "June 18, 2025",
+      readTime: "6 min read",
+      category: "Security",
+      imageUrl: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&h=300&fit=crop",
+      slug: "/blog/blockchain-security",
+      views: Math.floor(Math.random() * 500 + 100),
+      likes: Math.floor(Math.random() * 200 + 50)
+    },
+    {
+      id: 5,
+      title: "NFTs Beyond Art: Real World Applications",
+      date: "July 2, 2025",
+      readTime: "4 min read",
+      category: "NFTs",
+      imageUrl: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=500&h=300&fit=crop",
+      slug: "/blog/nft-applications",
+      views: Math.floor(Math.random() * 500 + 100),
+      likes: Math.floor(Math.random() * 200 + 50)
+    },
+    {
+      id: 6,
+      title: "Metaverse Architecture: Designing Virtual Worlds",
+      date: "July 15, 2025",
+      readTime: "8 min read",
+      category: "Metaverse",
+      imageUrl: "https://images.unsplash.com/photo-1639762680859-68aa7a7285d3?w=500&h=300&fit=crop",
+      slug: "/blog/metaverse-design",
+      views: Math.floor(Math.random() * 500 + 100),
+      likes: Math.floor(Math.random() * 200 + 50)
+    }
   ];
 
   const categories = ['All', 'AI', 'Blockchain', 'DeFi', 'NFTs', 'Metaverse', 'Security', 'Gaming'];
@@ -331,7 +363,7 @@ export default function BlogLayout() {
                               </>
                             )}
                           </span>
-                          <span className="absolute inset-0 bg-gradient-to-r from-[#ff8633] to-[#ff9a3c] opacity-0 hover:opacity-100 transition-opacity duration-300"></span>
+                          <span className="absolute inset-0 bg-gradient-to-r from-[#ff8633] to-[#ff9a3c] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                         </button>
                       </form>
                     )}
@@ -347,8 +379,6 @@ export default function BlogLayout() {
             </div>
           </div>
         </div>
-
-       
 
         {/* Main Blog Content */}
         <div id="blog-section" className="container mx-auto px-4 md:px-8 py-12 md:py-16">
@@ -385,8 +415,8 @@ export default function BlogLayout() {
             ))}
           </div>
 
-          {/* Animated Blog Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {/* Enhanced Blog Grid with 3 cards fixed for all screen sizes */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post, index) => (
               <BlogCard 
                 key={post.id} 
@@ -400,9 +430,9 @@ export default function BlogLayout() {
             ))}
           </div>
 
-          {/* Load More Section with Animation */}
+          {/* Enhanced Load More Section */}
           <div className="text-center mt-16">
-            <button className="px-8 py-3 bg-gradient-to-r from-[#ff9a3c] to-[#ff6f00] text-white font-medium rounded-lg hover:from-[#ff8633] hover:to-[#ff9a3c] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mx-auto group relative overflow-hidden interactive">
+            <button className="px-8 py-4 bg-gradient-to-r from-[#ff9a3c] to-[#ff6f00] text-white font-medium rounded-lg hover:from-[#ff8633] hover:to-[#ff9a3c] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mx-auto group relative overflow-hidden interactive">
               <span className="relative z-10">Load More Articles</span>
               <svg className="w-5 h-5 relative z-10 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -575,7 +605,7 @@ function BlogCard({ post, index, hoveredCard, setHoveredCard, mouseX, mouseY }) 
           boxShadow: isHovered ? '0 25px 50px -12px rgba(0, 0, 0, 0.25)' : '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
         }}
       >
-        {/* Image with hover effect */}
+        {/* Enhanced Image with hover effect */}
         <div className="relative overflow-hidden h-48">
           <img 
             src={post.imageUrl} 
@@ -585,20 +615,24 @@ function BlogCard({ post, index, hoveredCard, setHoveredCard, mouseX, mouseY }) 
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div className="absolute top-3 left-3">
-            <span className="px-2 py-1 bg-white/90 backdrop-blur-sm text-xs font-semibold text-gray-800 rounded-full shadow-sm">
+            <span className="px-3 py-1.5 bg-white/90 backdrop-blur-sm text-xs font-semibold text-gray-800 rounded-full shadow-sm flex items-center gap-1">
+              {post.category === 'AI' && '🤖'}
+              {post.category === 'Blockchain' && '⛓️'}
+              {post.category === 'DeFi' && '💸'}
+              {post.category === 'NFTs' && '🖼️'}
+              {post.category === 'Metaverse' && '🌌'}
+              {post.category === 'Security' && '🔒'}
+              {post.category === 'Gaming' && '🎮'}
               {post.category}
             </span>
           </div>
           <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-between items-end">
-            <span className="inline-block px-3 py-1 bg-gradient-to-r from-[#ff9a3c] to-[#ff6f00] text-white text-xs font-semibold rounded-full shadow-md">
-              Read Now →
-            </span>
-            <span className="inline-flex items-center text-white text-xs bg-black/50 px-2 py-1 rounded-full backdrop-blur-sm">
-              <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span className="inline-block px-3 py-1.5 bg-gradient-to-r from-[#ff9a3c] to-[#ff6f00] text-white text-xs font-semibold rounded-full shadow-md flex items-center gap-1">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
               </svg>
-              {post.views}
+              {post.views} views
             </span>
           </div>
         </div>
