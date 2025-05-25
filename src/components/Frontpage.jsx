@@ -294,8 +294,8 @@ export default function BlogLayout() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                         </svg>
                       </div>
-                      <h3 className="text-2xl font-bold text-white mb-2">Join Web3 Revolution</h3>
-                      <p className="text-white/80">Get exclusive insights delivered to your inbox</p>
+                      <h3 className="text-base font-bold text-white mb-2">Subscribe to our monthly newsletter.</h3>
+                    
                     </div>
                     
                     {isSubscribed ? (
@@ -356,7 +356,7 @@ export default function BlogLayout() {
                               </>
                             ) : (
                               <>
-                                <span>🚀 Join the Revolution</span>
+                                <span>Signup</span>
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
@@ -370,7 +370,7 @@ export default function BlogLayout() {
                     
                     <div className="mt-6 text-center">
                       <p className="text-xs text-white/70">
-                        Join 10,000+ Web3 enthusiasts • No spam, unsubscribe anytime
+                        Join with us.
                       </p>
                     </div>
                   </div>
