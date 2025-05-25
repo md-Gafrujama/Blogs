@@ -13,7 +13,6 @@ export default function BlogLayout() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isScrolling, setIsScrolling] = useState(false);
   const heroRef = useRef(null);
-  const cursorRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,24 +63,6 @@ export default function BlogLayout() {
     
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
-      
-      // Custom cursor effect
-      if (cursorRef.current) {
-        cursorRef.current.style.left = `${e.clientX}px`;
-        cursorRef.current.style.top = `${e.clientY}px`;
-        
-        // Interactive elements
-        const target = e.target;
-        if (target.closest('a, button, .interactive')) {
-          cursorRef.current.style.transform = 'translate(-50%, -50%) scale(2)';
-          cursorRef.current.style.backgroundColor = 'rgba(0, 14, 84, 0.3)';
-          cursorRef.current.style.borderColor = '#000e54';
-        } else {
-          cursorRef.current.style.transform = 'translate(-50%, -50%) scale(1)';
-          cursorRef.current.style.backgroundColor = 'rgba(0, 14, 84, 0.1)';
-          cursorRef.current.style.borderColor = '#000e54';
-        }
-      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -116,7 +97,18 @@ export default function BlogLayout() {
       views: Math.floor(Math.random() * 500 + 100),
       likes: Math.floor(Math.random() * 200 + 50)
     },
-   
+    {
+      id: 3,
+      title: "The Future of Web3 Gaming: Play-to-Earn Revolution",
+      date: "June 5, 2025",
+      readTime: "5 min read",
+      category: "Gaming",
+      imageUrl: "https://images.unsplash.com/photo-1639762681057-408e52192e55?w=500&h=300&fit=crop",
+      slug: "/blog/web3-gaming",
+      views: Math.floor(Math.random() * 500 + 100),
+      likes: Math.floor(Math.random() * 200 + 50)
+    },
+  
   ];
 
   const categories = ['All', 'AI', 'Blockchain', 'DeFi', 'NFTs', 'Metaverse', 'Security', 'Gaming'];
@@ -132,18 +124,6 @@ export default function BlogLayout() {
 
   return (
     <>
-      {/* Custom Cursor */}
-      <div 
-        ref={cursorRef}
-        className="fixed w-6 h-6 rounded-full pointer-events-none z-50 mix-blend-difference transition-all duration-100 ease-out border border-[#000e54]"
-        style={{
-          left: mousePosition.x,
-          top: mousePosition.y,
-          transform: 'translate(-50%, -50%) scale(1)',
-          backgroundColor: 'rgba(0, 14, 84, 0.1)'
-        }}
-      ></div>
-
       <Navbar />
       <div className="min-h-screen bg-gray-50">
         {/* Enhanced Hero Section with Interactive Effects */}
@@ -183,7 +163,7 @@ export default function BlogLayout() {
                     animation: `float ${Math.random() * 15 + 5}s linear infinite`,
                     animationDelay: `${Math.random() * 5}s`,
                     opacity: Math.random() * 0.5 + 0.1,
-                    transform: `translateY(${scrollPosition * (1 - depth)}px)`,
+                    transform: `translateY(${scrollPosition * (1 - depth)}px`,
                     zIndex: Math.floor(depth * 10)
                   }}
                 />
@@ -235,7 +215,7 @@ export default function BlogLayout() {
                   <span className="inline-block bg-gradient-to-r from-[#64b5f6] via-[#42a5f5] to-[#90caf9] bg-clip-text text-transparent animate-gradient">
                     Future Tech
                   </span>{' '}
-                  <span className="inline-block bg-gradient-to-r from-[#ff7043] via-[#ff5722] to-[#ffab91] bg-clip-text text-transparent animate-gradient delay-100">
+                  <span className="inline-block bg-gradient-to-r from-[#ff9a3c] via-[#ff8633] to-[#ff6f00] bg-clip-text text-transparent animate-gradient delay-100">
                     Insights
                   </span>
                 </h1>
@@ -253,12 +233,12 @@ export default function BlogLayout() {
                     </svg>
                     <span className="absolute inset-0 bg-gradient-to-r from-[#1a237e] to-[#303f9f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                   </button>
-                  <button className="px-6 py-3 sm:px-8 sm:py-4 bg-white/15 backdrop-blur-md text-white font-medium rounded-lg border border-white/30 hover:bg-white/25 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group relative overflow-hidden interactive">
+                  <button className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#ff9a3c] to-[#ff6f00] text-white font-medium rounded-lg hover:from-[#ff8633] hover:to-[#ff9a3c] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group relative overflow-hidden interactive">
                     <span className="relative z-10">🌐 Join Community</span>
                     <svg className="w-5 h-5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
-                    <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-[#ff8633] to-[#ff9a3c] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                   </button>
                 </div>
                 
@@ -272,12 +252,12 @@ export default function BlogLayout() {
 
               {/* Right side - Subscription Form */}
               <div className="lg:w-1/3 w-full max-w-md">
-                <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl relative overflow-hidden interactive">
-                  <div className="absolute -top-10 -right-10 w-20 h-20 bg-[#64b5f6]/30 rounded-full filter blur-xl"></div>
-                  <div className="absolute -bottom-10 -left-10 w-20 h-20 bg-[#000e54]/30 rounded-full filter blur-xl"></div>
+                <div className="bg-gradient-to-br from-[#ff9a3c]/20 via-[#ff8633]/15 to-[#ff6f00]/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl relative overflow-hidden interactive">
+                  <div className="absolute -top-10 -right-10 w-20 h-20 bg-[#ff8633]/30 rounded-full filter blur-xl"></div>
+                  <div className="absolute -bottom-10 -left-10 w-20 h-20 bg-[#ff6f00]/30 rounded-full filter blur-xl"></div>
                   <div className="relative z-10">
                     <div className="text-center mb-6">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#000e54] to-[#1a237e] rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#ff9a3c] to-[#ff6f00] rounded-full flex items-center justify-center shadow-lg animate-pulse">
                         <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                         </svg>
@@ -297,7 +277,7 @@ export default function BlogLayout() {
                         <p className="text-white/90 mb-4">You're now part of our community. Check your email for confirmation.</p>
                         <button 
                           onClick={() => setIsSubscribed(false)} 
-                          className="px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition-all duration-300 border border-white/30 interactive"
+                          className="px-4 py-2 bg-gradient-to-r from-[#ff9a3c] to-[#ff6f00] text-white rounded-lg hover:from-[#ff8633] hover:to-[#ff9a3c] transition-all duration-300 border border-white/30 interactive"
                         >
                           Subscribe Another Email
                         </button>
@@ -310,7 +290,7 @@ export default function BlogLayout() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter your email"
-                            className="w-full px-4 py-3 bg-white/20 backdrop-blur-sm text-white placeholder-white/70 rounded-lg border border-white/30 focus:border-white/60 focus:outline-none transition-all duration-300 focus:ring-2 focus:ring-[#64b5f6]/50 interactive"
+                            className="w-full px-4 py-3 bg-white/20 backdrop-blur-sm text-white placeholder-white/70 rounded-lg border border-white/30 focus:border-white/60 focus:outline-none transition-all duration-300 focus:ring-2 focus:ring-[#ff8633]/50 interactive"
                             required
                           />
                           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
@@ -333,7 +313,7 @@ export default function BlogLayout() {
                           className={`w-full px-4 py-3 rounded-lg font-medium transition-all duration-300 relative overflow-hidden ${
                             isLoading 
                               ? 'bg-gray-500/50 text-gray-300 cursor-not-allowed' 
-                              : 'bg-gradient-to-r from-[#000e54] to-[#1a237e] text-white hover:from-[#1a237e] hover:to-[#303f9f] shadow-lg hover:shadow-xl'
+                              : 'bg-gradient-to-r from-[#ff9a3c] to-[#ff6f00] text-white hover:from-[#ff8633] hover:to-[#ff9a3c] shadow-lg hover:shadow-xl'
                           } flex items-center justify-center gap-2 interactive`}
                         >
                           <span className="relative z-10">
@@ -351,7 +331,7 @@ export default function BlogLayout() {
                               </>
                             )}
                           </span>
-                          <span className="absolute inset-0 bg-gradient-to-r from-[#1a237e] to-[#303f9f] opacity-0 hover:opacity-100 transition-opacity duration-300"></span>
+                          <span className="absolute inset-0 bg-gradient-to-r from-[#ff8633] to-[#ff9a3c] opacity-0 hover:opacity-100 transition-opacity duration-300"></span>
                         </button>
                       </form>
                     )}
@@ -368,21 +348,13 @@ export default function BlogLayout() {
           </div>
         </div>
 
-        {/* Floating Scroll Indicator */}
-        {isScrolling && (
-          <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-[#000e54] text-white px-4 py-2 rounded-full shadow-xl z-40 flex items-center gap-2 backdrop-blur-sm border border-white/20">
-            <svg className="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-            <span>Scroll to explore</span>
-          </div>
-        )}
+       
 
         {/* Main Blog Content */}
         <div id="blog-section" className="container mx-auto px-4 md:px-8 py-12 md:py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              <span className="bg-gradient-to-r from-[#000e54] to-[#1a237e] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#ff9a3c] via-[#ff8633] to-[#ff6f00] bg-clip-text text-transparent">
                 Latest Web3 & Tech Insights
               </span>
             </h2>
@@ -397,7 +369,7 @@ export default function BlogLayout() {
                 onClick={() => setActiveCategory(category)}
                 className={`px-4 py-2 rounded-full text-sm font-medium shadow-md transition-all duration-300 ${
                   activeCategory === category
-                    ? 'bg-gradient-to-r from-[#000e54] to-[#1a237e] text-white shadow-lg'
+                    ? 'bg-gradient-to-r from-[#ff9a3c] to-[#ff6f00] text-white shadow-lg'
                     : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
                 } flex items-center gap-2 hover:scale-105 interactive`}
               >
@@ -430,12 +402,12 @@ export default function BlogLayout() {
 
           {/* Load More Section with Animation */}
           <div className="text-center mt-16">
-            <button className="px-8 py-3 bg-gradient-to-r from-[#000e54] to-[#1a237e] text-white font-medium rounded-lg hover:from-[#1a237e] hover:to-[#303f9f] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mx-auto group relative overflow-hidden interactive">
+            <button className="px-8 py-3 bg-gradient-to-r from-[#ff9a3c] to-[#ff6f00] text-white font-medium rounded-lg hover:from-[#ff8633] hover:to-[#ff9a3c] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mx-auto group relative overflow-hidden interactive">
               <span className="relative z-10">Load More Articles</span>
               <svg className="w-5 h-5 relative z-10 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#1a237e] to-[#303f9f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <span className="absolute inset-0 bg-gradient-to-r from-[#ff8633] to-[#ff9a3c] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
             </button>
           </div>
         </div>
@@ -618,7 +590,7 @@ function BlogCard({ post, index, hoveredCard, setHoveredCard, mouseX, mouseY }) 
             </span>
           </div>
           <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-between items-end">
-            <span className="inline-block px-3 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs font-semibold rounded-full shadow-md">
+            <span className="inline-block px-3 py-1 bg-gradient-to-r from-[#ff9a3c] to-[#ff6f00] text-white text-xs font-semibold rounded-full shadow-md">
               Read Now →
             </span>
             <span className="inline-flex items-center text-white text-xs bg-black/50 px-2 py-1 rounded-full backdrop-blur-sm">
