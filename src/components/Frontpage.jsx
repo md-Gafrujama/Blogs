@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import WideDiv from './WideDiv';
 import Navbar from './Navbar';
 
@@ -7,6 +7,13 @@ export default function BlogLayout() {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isScrolling, setIsScrolling] = useState(false);
+  const heroRef = useRef(null);
+  const cursorRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +21,6 @@ export default function BlogLayout() {
     setError('');
     
     try {
-      // Web3 Forms integration
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -22,7 +28,7 @@ export default function BlogLayout() {
           Accept: "application/json"
         },
         body: JSON.stringify({
-          access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Replace with your actual key
+          access_key: "e505fedc-14ad-49ed-834f-32cd23ad6136",
           email: email,
           subject: "New Blog Subscription",
           from_name: "Future Tech Insights Blog",
@@ -46,7 +52,47 @@ export default function BlogLayout() {
     }
   };
 
-  // Blog posts array with 16 posts
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+      setIsScrolling(true);
+      clearTimeout(window.scrollEndTimer);
+      window.scrollEndTimer = setTimeout(() => {
+        setIsScrolling(false);
+      }, 100);
+    };
+    
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+      
+      // Custom cursor effect
+      if (cursorRef.current) {
+        cursorRef.current.style.left = `${e.clientX}px`;
+        cursorRef.current.style.top = `${e.clientY}px`;
+        
+        // Interactive elements
+        const target = e.target;
+        if (target.closest('a, button, .interactive')) {
+          cursorRef.current.style.transform = 'translate(-50%, -50%) scale(2)';
+          cursorRef.current.style.backgroundColor = 'rgba(0, 14, 84, 0.3)';
+          cursorRef.current.style.borderColor = '#000e54';
+        } else {
+          cursorRef.current.style.transform = 'translate(-50%, -50%) scale(1)';
+          cursorRef.current.style.backgroundColor = 'rgba(0, 14, 84, 0.1)';
+          cursorRef.current.style.borderColor = '#000e54';
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   const blogPosts = [
     {
       id: 1,
@@ -55,7 +101,9 @@ export default function BlogLayout() {
       readTime: "2 min read",
       category: "AI",
       imageUrl: "https://blogs.compare-bazaar.com/images/blog1.jpg",
-      slug: "/blog1"
+      slug: "/blog1",
+      views: Math.floor(Math.random() * 500 + 100),
+      likes: Math.floor(Math.random() * 200 + 50)
     },
     {
       id: 2,
@@ -64,182 +112,114 @@ export default function BlogLayout() {
       readTime: "7 min read",
       category: "DeFi",
       imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500&h=300&fit=crop",
-      slug: "/blog/defi-future-banking"
+      slug: "/blog/defi-future-banking",
+      views: Math.floor(Math.random() * 500 + 100),
+      likes: Math.floor(Math.random() * 200 + 50)
     },
-    {
-      id: 3,
-      title: "NFT Marketplaces: Beyond Digital Art",
-      date: "May 10, 2025",
-      readTime: "4 min read",
-      category: "NFTs",
-      imageUrl: "https://images.unsplash.com/photo-1640161704729-cbe966a08476?w=500&h=300&fit=crop",
-      slug: "/blog/nft-marketplaces-beyond-art"
-    },
-    {
-      id: 4,
-      title: "Smart Contracts: Automating Trust in Web3",
-      date: "May 8, 2025",
-      readTime: "6 min read",
-      category: "Blockchain",
-      imageUrl: "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=500&h=300&fit=crop",
-      slug: "/blog/smart-contracts-web3-trust"
-    },
-    {
-      id: 5,
-      title: "The Metaverse Economy: Virtual Real Estate Boom",
-      date: "May 5, 2025",
-      readTime: "8 min read",
-      category: "Metaverse",
-      imageUrl: "https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=500&h=300&fit=crop",
-      slug: "/blog/metaverse-virtual-real-estate"
-    },
-    {
-      id: 6,
-      title: "Cryptocurrency Trading: Advanced Strategies",
-      date: "May 3, 2025",
-      readTime: "9 min read",
-      category: "Trading",
-      imageUrl: "https://images.unsplash.com/photo-1640340434855-6084b1f4901c?w=500&h=300&fit=crop",
-      slug: "/blog/crypto-trading-strategies"
-    },
-    {
-      id: 7,
-      title: "Web3 Security: Protecting Your Digital Assets",
-      date: "May 1, 2025",
-      readTime: "6 min read",
-      category: "Security",
-      imageUrl: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&h=300&fit=crop",
-      slug: "/blog/web3-security-digital-assets"
-    },
-    {
-      id: 8,
-      title: "Layer 2 Solutions: Scaling Ethereum",
-      date: "April 28, 2025",
-      readTime: "7 min read",
-      category: "Ethereum",
-      imageUrl: "https://images.unsplash.com/photo-1639762681057-408e52192e55?w=500&h=300&fit=crop",
-      slug: "/blog/layer2-scaling-ethereum"
-    },
-    {
-      id: 9,
-      title: "DAO Governance: Decentralized Decision Making",
-      date: "April 25, 2025",
-      readTime: "5 min read",
-      category: "Governance",
-      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop",
-      slug: "/blog/dao-governance-decisions"
-    },
-    {
-      id: 10,
-      title: "Cross-Chain Bridges: Connecting Blockchains",
-      date: "April 22, 2025",
-      readTime: "6 min read",
-      category: "Infrastructure",
-      imageUrl: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=500&h=300&fit=crop",
-      slug: "/blog/cross-chain-bridges"
-    },
-    {
-      id: 11,
-      title: "Web3 Gaming: Play-to-Earn Revolution",
-      date: "April 20, 2025",
-      readTime: "8 min read",
-      category: "Gaming",
-      imageUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&h=300&fit=crop",
-      slug: "/blog/web3-gaming-play-to-earn"
-    },
-    {
-      id: 12,
-      title: "Decentralized Storage: IPFS and Beyond",
-      date: "April 18, 2025",
-      readTime: "5 min read",
-      category: "Storage",
-      imageUrl: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&h=300&fit=crop",
-      slug: "/blog/decentralized-storage-ipfs"
-    },
-    {
-      id: 13,
-      title: "Tokenomics: Designing Sustainable Crypto Economics",
-      date: "April 15, 2025",
-      readTime: "7 min read",
-      category: "Economics",
-      imageUrl: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=500&h=300&fit=crop",
-      slug: "/blog/tokenomics-crypto-economics"
-    },
-    {
-      id: 14,
-      title: "Web3 Identity: Self-Sovereign Digital Identity",
-      date: "April 12, 2025",
-      readTime: "6 min read",
-      category: "Identity",
-      imageUrl: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=500&h=300&fit=crop",
-      slug: "/blog/web3-digital-identity"
-    },
-    {
-      id: 15,
-      title: "Quantum Computing vs Blockchain Security",
-      date: "April 10, 2025",
-      readTime: "9 min read",
-      category: "Quantum",
-      imageUrl: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=500&h=300&fit=crop",
-      slug: "/blog/quantum-blockchain-security"
-    },
-    {
-      id: 16,
-      title: "The Future of Work in Web3",
-      date: "April 8, 2025",
-      readTime: "8 min read",
-      category: "Future of Work",
-      imageUrl: "https://images.unsplash.com/photo-1553028826-f4804a6dba3b?w=500&h=300&fit=crop",
-      slug: "/blog/future-work-web3"
-    }
+   
   ];
+
+  const categories = ['All', 'AI', 'Blockchain', 'DeFi', 'NFTs', 'Metaverse', 'Security', 'Gaming'];
+  
+  const filteredPosts = activeCategory === 'All' 
+    ? blogPosts 
+    : blogPosts.filter(post => post.category === activeCategory);
+
+  // Calculate mouse position relative to hero section
+  const heroRect = heroRef.current?.getBoundingClientRect();
+  const mouseX = heroRect ? (mousePosition.x - heroRect.left) / heroRect.width : 0;
+  const mouseY = heroRect ? (mousePosition.y - heroRect.top) / heroRect.height : 0;
 
   return (
     <>
+      {/* Custom Cursor */}
+      <div 
+        ref={cursorRef}
+        className="fixed w-6 h-6 rounded-full pointer-events-none z-50 mix-blend-difference transition-all duration-100 ease-out border border-[#000e54]"
+        style={{
+          left: mousePosition.x,
+          top: mousePosition.y,
+          transform: 'translate(-50%, -50%) scale(1)',
+          backgroundColor: 'rgba(0, 14, 84, 0.1)'
+        }}
+      ></div>
+
       <Navbar />
       <div className="min-h-screen bg-gray-50">
-        {/* Enhanced Hero Section */}
-        <div className="relative py-16 lg:py-32 overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
-          {/* Animated gradient background */}
+        {/* Enhanced Hero Section with Interactive Effects */}
+        <div 
+          ref={heroRef}
+          className="relative py-16 lg:py-32 overflow-hidden bg-gradient-to-br from-[#000e54] via-[#1a237e] to-[#303f9f]"
+          style={{
+            transform: `translateY(${scrollPosition * 0.3}px)`,
+            '--mouse-x': mouseX,
+            '--mouse-y': mouseY
+          }}
+        >
+          {/* Dynamic gradient that follows mouse */}
           <div className="absolute inset-0 overflow-hidden opacity-80">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500/20 via-purple-500/10 to-pink-500/20 animate-pulse"></div>
+            <div 
+              className="absolute inset-0 bg-[radial-gradient(circle_at_calc(var(--mouse-x)*100%)_calc(var(--mouse-y)*100%),_var(--tw-gradient-stops))] from-[#000e54]/20 via-[#1a237e]/10 to-[#303f9f]/20 animate-pulse"
+              style={{
+                backgroundPosition: `calc(var(--mouse-x) * 100%) calc(var(--mouse-y) * 100%)`
+              }}
+            ></div>
           </div>
           
-          {/* Floating particles */}
+          {/* Floating particles with depth */}
           <div className="absolute inset-0 overflow-hidden">
-            {[...Array(30)].map((_, i) => (
-              <div
-                key={`particle-${i}`}
-                className="absolute rounded-full bg-white/10"
-                style={{
-                  width: `${Math.random() * 10 + 2}px`,
-                  height: `${Math.random() * 10 + 2}px`,
-                  top: `${Math.random() * 100}%`,
-                  left: `${Math.random() * 100}%`,
-                  animation: `float ${Math.random() * 15 + 5}s linear infinite`,
-                  animationDelay: `${Math.random() * 5}s`,
-                  opacity: Math.random() * 0.5 + 0.1
-                }}
-              />
-            ))}
+            {[...Array(80)].map((_, i) => {
+              const size = Math.random() * 8 + 2;
+              const depth = Math.random() * 0.5 + 0.5;
+              return (
+                <div
+                  key={`particle-${i}`}
+                  className="absolute rounded-full bg-white/10"
+                  style={{
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    top: `${Math.random() * 100}%`,
+                    left: `${Math.random() * 100}%`,
+                    animation: `float ${Math.random() * 15 + 5}s linear infinite`,
+                    animationDelay: `${Math.random() * 5}s`,
+                    opacity: Math.random() * 0.5 + 0.1,
+                    transform: `translateY(${scrollPosition * (1 - depth)}px)`,
+                    zIndex: Math.floor(depth * 10)
+                  }}
+                />
+              );
+            })}
           </div>
 
-          {/* Floating tech icons */}
+          {/* Interactive tech icons */}
           <div className="absolute inset-0 overflow-hidden">
-            {['🔗', '⚡', '🔮', '🌐', '💎', '🧠', '📊', '🔒'].map((icon, i) => (
-              <div
-                key={`icon-${i}`}
-                className="absolute text-2xl md:text-3xl opacity-20"
-                style={{
-                  top: `${Math.random() * 80 + 10}%`,
-                  left: `${Math.random() * 80 + 10}%`,
-                  animation: `float ${Math.random() * 20 + 10}s linear infinite`,
-                  animationDelay: `${Math.random() * 5}s`,
-                }}
-              >
-                {icon}
-              </div>
-            ))}
+            {['🔗', '⚡', '🔮', '🌐', '💎', '🧠', '📊', '🔒', '🚀', '🖥️', '🔑', '💡'].map((icon, i) => {
+              const depth = Math.random() * 0.7 + 0.3;
+              return (
+                <div
+                  key={`icon-${i}`}
+                  className="absolute text-2xl md:text-3xl opacity-20 hover:opacity-60 transition-all duration-500 cursor-pointer hover:text-[#64b5f6] interactive"
+                  style={{
+                    top: `${Math.random() * 80 + 10}%`,
+                    left: `${Math.random() * 80 + 10}%`,
+                    animation: `float ${Math.random() * 20 + 10}s linear infinite`,
+                    animationDelay: `${Math.random() * 5}s`,
+                    transform: `translateY(${scrollPosition * (1 - depth)}px) translateX(${mouseX * 10}px)`,
+                    zIndex: Math.floor(depth * 10),
+                    textShadow: hoveredCard === `icon-${i}` ? '0 0 15px rgba(100,181,246,0.7)' : 'none'
+                  }}
+                  onMouseEnter={() => setHoveredCard(`icon-${i}`)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                >
+                  {icon}
+                  {hoveredCard === `icon-${i}` && (
+                    <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-3 py-1 rounded-full whitespace-nowrap backdrop-blur-sm border border-white/20 shadow-lg">
+                      Tech Topic #{i+1}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           <div className="container mx-auto px-4 md:px-8 relative z-10">
@@ -247,15 +227,15 @@ export default function BlogLayout() {
               {/* Left side - Main heading */}
               <div className="lg:w-2/3 text-center lg:text-left">
                 <div className="mb-6">
-                  <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-semibold border border-white/30 shadow-lg animate-bounce">
+                  <span className="inline-block px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-semibold border border-white/30 shadow-lg animate-bounce hover:animate-none hover:scale-105 transition-transform hover:bg-white/30 interactive">
                     🚀 Web3 Insights Hub
                   </span>
                 </div>
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                  <span className="inline-block bg-gradient-to-r from-cyan-300 via-blue-300 to-purple-300 bg-clip-text text-transparent">
+                  <span className="inline-block bg-gradient-to-r from-[#64b5f6] via-[#42a5f5] to-[#90caf9] bg-clip-text text-transparent animate-gradient">
                     Future Tech
                   </span>{' '}
-                  <span className="inline-block bg-gradient-to-r from-pink-300 via-red-300 to-yellow-300 bg-clip-text text-transparent">
+                  <span className="inline-block bg-gradient-to-r from-[#ff7043] via-[#ff5722] to-[#ffab91] bg-clip-text text-transparent animate-gradient delay-100">
                     Insights
                   </span>
                 </h1>
@@ -265,112 +245,122 @@ export default function BlogLayout() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <button 
                     onClick={() => document.getElementById('blog-section').scrollIntoView({ behavior: 'smooth' })}
-                    className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
+                    className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#000e54] to-[#1a237e] text-white font-medium rounded-lg hover:from-[#1a237e] hover:to-[#303f9f] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group relative overflow-hidden interactive"
                   >
-                    <span>🔍 Explore Articles</span>
-                    <svg className="w-5 h-5 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <span className="relative z-10">🔍 Explore Articles</span>
+                    <svg className="w-5 h-5 group-hover:translate-y-0.5 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
+                    <span className="absolute inset-0 bg-gradient-to-r from-[#1a237e] to-[#303f9f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                   </button>
-                  <button className="px-6 py-3 sm:px-8 sm:py-4 bg-white/15 backdrop-blur-md text-white font-medium rounded-lg border border-white/30 hover:bg-white/25 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
-                    <span>🌐 Join Community</span>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <button className="px-6 py-3 sm:px-8 sm:py-4 bg-white/15 backdrop-blur-md text-white font-medium rounded-lg border border-white/30 hover:bg-white/25 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group relative overflow-hidden interactive">
+                    <span className="relative z-10">🌐 Join Community</span>
+                    <svg className="w-5 h-5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
+                    <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                   </button>
                 </div>
                 
-                {/* Stats */}
+                {/* Stats with counter animation */}
                 <div className="mt-10 flex flex-wrap gap-6 justify-center lg:justify-start">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-1">500+</div>
-                    <div className="text-sm text-white/80">Published Articles</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-1">50K+</div>
-                    <div className="text-sm text-white/80">Monthly Readers</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-white mb-1">100+</div>
-                    <div className="text-sm text-white/80">Industry Experts</div>
-                  </div>
+                  <StatCounter endValue={500} label="Published Articles" duration={2} />
+                  <StatCounter endValue={50000} label="Monthly Readers" duration={2.5} />
+                  <StatCounter endValue={100} label="Industry Experts" duration={3} />
                 </div>
               </div>
 
               {/* Right side - Subscription Form */}
               <div className="lg:w-1/3 w-full max-w-md">
-                <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
-                  <div className="text-center mb-6">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg animate-pulse">
-                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                      </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Join Web3 Revolution</h3>
-                    <p className="text-white/80">Get exclusive insights delivered to your inbox</p>
-                  </div>
-                  
-                  {isSubscribed ? (
-                    <div className="text-center py-6">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-green-500/30 backdrop-blur-sm rounded-full flex items-center justify-center border-2 border-green-400/50 animate-bounce">
-                        <svg className="w-8 h-8 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 shadow-xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl relative overflow-hidden interactive">
+                  <div className="absolute -top-10 -right-10 w-20 h-20 bg-[#64b5f6]/30 rounded-full filter blur-xl"></div>
+                  <div className="absolute -bottom-10 -left-10 w-20 h-20 bg-[#000e54]/30 rounded-full filter blur-xl"></div>
+                  <div className="relative z-10">
+                    <div className="text-center mb-6">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#000e54] to-[#1a237e] rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                         </svg>
                       </div>
-                      <h4 className="text-xl font-bold text-white mb-2">🎉 Welcome!</h4>
-                      <p className="text-white/90 mb-4">You're now part of our community. Check your email for confirmation.</p>
-                      <button 
-                        onClick={() => setIsSubscribed(false)} 
-                        className="px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition-all duration-300 border border-white/30"
-                      >
-                        Subscribe Another Email
-                      </button>
+                      <h3 className="text-2xl font-bold text-white mb-2">Join Web3 Revolution</h3>
+                      <p className="text-white/80">Get exclusive insights delivered to your inbox</p>
                     </div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <div>
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Enter your email"
-                          className="w-full px-4 py-3 bg-white/20 backdrop-blur-sm text-white placeholder-white/70 rounded-lg border border-white/30 focus:border-white/60 focus:outline-none transition-all duration-300 focus:ring-2 focus:ring-purple-500/50"
-                          required
-                        />
+                    
+                    {isSubscribed ? (
+                      <div className="text-center py-6">
+                        <div className="w-16 h-16 mx-auto mb-4 bg-green-500/30 backdrop-blur-sm rounded-full flex items-center justify-center border-2 border-green-400/50 animate-bounce">
+                          <svg className="w-8 h-8 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <h4 className="text-xl font-bold text-white mb-2">🎉 Welcome!</h4>
+                        <p className="text-white/90 mb-4">You're now part of our community. Check your email for confirmation.</p>
+                        <button 
+                          onClick={() => setIsSubscribed(false)} 
+                          className="px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg hover:bg-white/30 transition-all duration-300 border border-white/30 interactive"
+                        >
+                          Subscribe Another Email
+                        </button>
                       </div>
-                      {error && (
-                        <div className="text-red-300 text-sm">{error}</div>
-                      )}
-                      <button
-                        type="submit"
-                        disabled={isLoading}
-                        className={`w-full px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
-                          isLoading 
-                            ? 'bg-gray-500/50 text-gray-300 cursor-not-allowed' 
-                            : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl'
-                        } flex items-center justify-center gap-2`}
-                      >
-                        {isLoading ? (
-                          <>
-                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                            Subscribing...
-                          </>
-                        ) : (
-                          <>
-                            <span>🚀 Join the Revolution</span>
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    ) : (
+                      <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="relative">
+                          <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
+                            className="w-full px-4 py-3 bg-white/20 backdrop-blur-sm text-white placeholder-white/70 rounded-lg border border-white/30 focus:border-white/60 focus:outline-none transition-all duration-300 focus:ring-2 focus:ring-[#64b5f6]/50 interactive"
+                            required
+                          />
+                          <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <svg className="w-5 h-5 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
-                          </>
+                          </div>
+                        </div>
+                        {error && (
+                          <div className="text-red-300 text-sm flex items-center">
+                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {error}
+                          </div>
                         )}
-                      </button>
-                    </form>
-                  )}
-                  
-                  <div className="mt-6 text-center">
-                    <p className="text-xs text-white/70">
-                      Join 10,000+ Web3 enthusiasts • No spam, unsubscribe anytime
-                    </p>
+                        <button
+                          type="submit"
+                          disabled={isLoading}
+                          className={`w-full px-4 py-3 rounded-lg font-medium transition-all duration-300 relative overflow-hidden ${
+                            isLoading 
+                              ? 'bg-gray-500/50 text-gray-300 cursor-not-allowed' 
+                              : 'bg-gradient-to-r from-[#000e54] to-[#1a237e] text-white hover:from-[#1a237e] hover:to-[#303f9f] shadow-lg hover:shadow-xl'
+                          } flex items-center justify-center gap-2 interactive`}
+                        >
+                          <span className="relative z-10">
+                            {isLoading ? (
+                              <>
+                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                                Subscribing...
+                              </>
+                            ) : (
+                              <>
+                                <span>🚀 Join the Revolution</span>
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                              </>
+                            )}
+                          </span>
+                          <span className="absolute inset-0 bg-gradient-to-r from-[#1a237e] to-[#303f9f] opacity-0 hover:opacity-100 transition-opacity duration-300"></span>
+                        </button>
+                      </form>
+                    )}
+                    
+                    <div className="mt-6 text-center">
+                      <p className="text-xs text-white/70">
+                        Join 10,000+ Web3 enthusiasts • No spam, unsubscribe anytime
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -378,42 +368,74 @@ export default function BlogLayout() {
           </div>
         </div>
 
+        {/* Floating Scroll Indicator */}
+        {isScrolling && (
+          <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-[#000e54] text-white px-4 py-2 rounded-full shadow-xl z-40 flex items-center gap-2 backdrop-blur-sm border border-white/20">
+            <svg className="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+            <span>Scroll to explore</span>
+          </div>
+        )}
+
         {/* Main Blog Content */}
         <div id="blog-section" className="container mx-auto px-4 md:px-8 py-12 md:py-16">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Latest Web3 & Tech Insights</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              <span className="bg-gradient-to-r from-[#000e54] to-[#1a237e] bg-clip-text text-transparent">
+                Latest Web3 & Tech Insights
+              </span>
+            </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">Discover the future of technology through our expert analysis</p>
           </div>
 
-          {/* Category Filter */}
+          {/* Interactive Category Filter */}
           <div className="flex flex-wrap justify-center gap-3 mb-12">
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium shadow-md hover:bg-blue-700 transition-colors">
-              All Topics
-            </button>
-            {['AI', 'Blockchain', 'DeFi', 'NFTs', 'Metaverse', 'Security', 'Gaming'].map((category) => (
+            {categories.map((category) => (
               <button 
                 key={category}
-                className="px-4 py-2 bg-white text-gray-700 rounded-full text-sm font-medium shadow-md hover:bg-gray-100 transition-colors border border-gray-200"
+                onClick={() => setActiveCategory(category)}
+                className={`px-4 py-2 rounded-full text-sm font-medium shadow-md transition-all duration-300 ${
+                  activeCategory === category
+                    ? 'bg-gradient-to-r from-[#000e54] to-[#1a237e] text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                } flex items-center gap-2 hover:scale-105 interactive`}
               >
+                {category === 'AI' && '🤖'}
+                {category === 'Blockchain' && '⛓️'}
+                {category === 'DeFi' && '💸'}
+                {category === 'NFTs' && '🖼️'}
+                {category === 'Metaverse' && '🌌'}
+                {category === 'Security' && '🔒'}
+                {category === 'Gaming' && '🎮'}
                 {category}
               </button>
             ))}
           </div>
 
-          {/* Blog Grid - Responsive columns */}
+          {/* Animated Blog Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {blogPosts.map((post) => (
-              <BlogCard key={post.id} post={post} />
+            {filteredPosts.map((post, index) => (
+              <BlogCard 
+                key={post.id} 
+                post={post} 
+                index={index}
+                hoveredCard={hoveredCard}
+                setHoveredCard={setHoveredCard}
+                mouseX={mouseX}
+                mouseY={mouseY}
+              />
             ))}
           </div>
 
-          {/* Load More Section */}
+          {/* Load More Section with Animation */}
           <div className="text-center mt-16">
-            <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mx-auto">
-              <span>Load More Articles</span>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button className="px-8 py-3 bg-gradient-to-r from-[#000e54] to-[#1a237e] text-white font-medium rounded-lg hover:from-[#1a237e] hover:to-[#303f9f] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mx-auto group relative overflow-hidden interactive">
+              <span className="relative z-10">Load More Articles</span>
+              <svg className="w-5 h-5 relative z-10 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
+              <span className="absolute inset-0 bg-gradient-to-r from-[#1a237e] to-[#303f9f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
             </button>
           </div>
         </div>
@@ -433,15 +455,154 @@ export default function BlogLayout() {
             transform: translateY(0) translateX(0);
           }
         }
+        
+        @keyframes gradient {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
+        }
+        
+        .animate-gradient {
+          background-size: 200% 200%;
+          animation: gradient 6s ease infinite;
+        }
+        
+        .animate-gradient.delay-100 {
+          animation-delay: 0.1s;
+        }
+        
+        .animate-gradient.delay-200 {
+          animation-delay: 0.2s;
+        }
+        
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        
+        .card-hover-effect {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover-effect:hover {
+          transform: translateY(-5px) rotate(1deg);
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
       `}</style>
     </>
   );
 }
 
-function BlogCard({ post }) {
+function StatCounter({ endValue, label, duration = 2 }) {
+  const [count, setCount] = useState(0);
+  
+  useEffect(() => {
+    let start = 0;
+    const increment = endValue / (duration * 60); // 60fps
+    
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= endValue) {
+        setCount(endValue);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 1000/60); // 60fps
+    
+    return () => clearInterval(timer);
+  }, [endValue, duration]);
+  
   return (
-    <a href={post.slug} className="block group">
-      <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-2 h-full flex flex-col">
+    <div className="text-center transform hover:scale-105 transition-transform duration-300 interactive">
+      <div className="text-3xl font-bold text-white mb-1">
+        {count.toLocaleString()}+
+      </div>
+      <div className="text-sm text-white/80">{label}</div>
+    </div>
+  );
+}
+
+function BlogCard({ post, index, hoveredCard, setHoveredCard, mouseX, mouseY }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(post.likes);
+  const cardRef = useRef(null);
+  
+  const handleLike = (e) => {
+    e.preventDefault();
+    setIsLiked(!isLiked);
+    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+  };
+
+  // Calculate card position relative to viewport
+  const cardRect = cardRef.current?.getBoundingClientRect();
+  const cardCenterX = cardRect ? (cardRect.left + cardRect.width / 2) / window.innerWidth : 0;
+  const cardCenterY = cardRect ? (cardRect.top + cardRect.height / 2) / window.innerHeight : 0;
+
+  // Calculate distance from mouse to card center
+  const distanceX = mouseX - cardCenterX;
+  const distanceY = mouseY - cardCenterY;
+  const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+  // Only apply transform if mouse is within certain distance
+  const shouldTransform = distance < 0.3;
+  const transformX = shouldTransform ? distanceX * 20 : 0;
+  const transformY = shouldTransform ? distanceY * 20 : 0;
+
+  return (
+    <a 
+      href={post.slug} 
+      className="block group interactive"
+      onMouseEnter={() => {
+        setIsHovered(true);
+        setHoveredCard(`card-${post.id}`);
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setHoveredCard(null);
+      }}
+    >
+      <div 
+        ref={cardRef}
+        className={`bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col card-hover-effect ${
+          hoveredCard && hoveredCard !== `card-${post.id}` ? 'opacity-70' : 'opacity-100'
+        }`}
+        style={{
+          transform: isHovered 
+            ? `translateY(-8px) rotate(0.5deg) scale(1.02) translateX(${transformX}px) translateY(${transformY}px)` 
+            : hoveredCard 
+              ? `translateY(-2px) translateX(${transformX * 0.5}px) translateY(${transformY * 0.5}px)` 
+              : `translateX(${transformX * 0.3}px) translateY(${transformY * 0.3}px)`,
+          transitionDelay: `${index * 50}ms`,
+          zIndex: isHovered ? 10 : 1,
+          boxShadow: isHovered ? '0 25px 50px -12px rgba(0, 0, 0, 0.25)' : '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+        }}
+      >
         {/* Image with hover effect */}
         <div className="relative overflow-hidden h-48">
           <img 
@@ -452,13 +613,20 @@ function BlogCard({ post }) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div className="absolute top-3 left-3">
-            <span className="px-2 py-1 bg-white/90 backdrop-blur-sm text-xs font-semibold text-gray-800 rounded-full">
+            <span className="px-2 py-1 bg-white/90 backdrop-blur-sm text-xs font-semibold text-gray-800 rounded-full shadow-sm">
               {post.category}
             </span>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <span className="inline-block px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full">
+          <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-between items-end">
+            <span className="inline-block px-3 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs font-semibold rounded-full shadow-md">
               Read Now →
+            </span>
+            <span className="inline-flex items-center text-white text-xs bg-black/50 px-2 py-1 rounded-full backdrop-blur-sm">
+              <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              {post.views}
             </span>
           </div>
         </div>
@@ -491,17 +659,27 @@ function BlogCard({ post }) {
             </div>
             <div className="flex space-x-1">
               <button 
-                onClick={(e) => e.preventDefault()} 
-                className="p-1.5 text-gray-400 hover:text-red-500 transition-colors"
+                onClick={handleLike} 
+                className="p-1.5 text-gray-400 hover:text-red-500 transition-colors transform hover:scale-125"
                 aria-label="Save to favorites"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                <svg 
+                  className={`w-4 h-4 ${isLiked ? 'fill-red-500 text-red-500' : ''}`} 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={isLiked ? 0 : 2} 
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
+                  />
                 </svg>
+                <span className="sr-only">{likeCount} likes</span>
               </button>
               <button 
                 onClick={(e) => e.preventDefault()} 
-                className="p-1.5 text-gray-400 hover:text-blue-500 transition-colors"
+                className="p-1.5 text-gray-400 hover:text-blue-500 transition-colors transform hover:scale-125"
                 aria-label="Share article"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

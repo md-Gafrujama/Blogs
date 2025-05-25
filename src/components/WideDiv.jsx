@@ -47,7 +47,7 @@ const WideDiv = () => {
           <div className="mb-6 lg:pl-2">
             <h2 className="text-base font-semibold mb-7 font-serif text-[#ff8633]">Our Company</h2>
             <ul className="list-none p-0">
-              <li className="mb-2 text-sm"><a href="/About Us" className="text-gray-700 no-underline transition-all duration-200 hover:text-[#ff8633] hover:font-semibold">About Us</a></li>
+              <li className="mb-2 text-sm"><a href="https://www.compare-bazaar.com/About%20Us" className="text-gray-700 no-underline transition-all duration-200 hover:text-[#ff8633] hover:font-semibold">About Us</a></li>
               <li className="mb-2 text-sm"><a href="/Careers" className="text-gray-700 no-underline transition-all duration-200 hover:text-[#ff8633] hover:font-semibold">Careers</a></li>
               {/* <li className="mb-2 text-sm"><a href="/Advertise" className="text-gray-700 no-underline transition-all duration-200 hover:text-[#ff8633] hover:font-semibold">Advertise With Us</a></li> */}
               {/* <li className="mb-2 text-sm"><a href="/EditorialProcess" className="text-gray-700 no-underline transition-all duration-200 hover:text-[#ff8633] hover:font-semibold">Editorial Process</a></li> */}
