@@ -345,7 +345,7 @@ const shareOnLinkedIn = () => {
   </div>
 
   {/* Share Section */}
-  <div className="bg-white p-8 rounded-xl  border border-gray-100 max-w-5xl mx-auto mt-6">
+  <div className="p-8  mt-6">
     <p className="text-sm text-gray-600 mb-3">Share this article:</p>
     <div className="flex flex-row space-x-3">
       <button
