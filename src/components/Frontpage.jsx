@@ -77,10 +77,10 @@ export default function BlogLayout() {
   const blogPosts = [
     {
       id: 1,
-      title: "The AI Blueprint Series — Strategies, Use-Cases, and More Hype",
-      date: "May 3, 2023",
-      readTime: "2 min read",
-      category: "AI",
+      title: "How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey",
+      date: "Aprail, 2025",
+      readTime: "5 min read",
+      category: "MarTech",
       imageUrl: "https://blogs.compare-bazaar.com/images/blog1.jpg",
       slug: "/blog1",
       views: Math.floor(Math.random() * 500 + 100),
@@ -143,7 +143,7 @@ export default function BlogLayout() {
     }
   ];
 
-  const categories = ['All', 'AI', 'Blockchain', 'DeFi', 'NFTs', 'Metaverse', 'Security', 'Gaming'];
+  const categories = ['All', 'AI', 'MarTech', 'DeFi', 'NFTs', 'Metaverse', 'Security', 'Gaming'];
   
   const filteredPosts = activeCategory === 'All' 
     ? blogPosts 
@@ -404,7 +404,7 @@ export default function BlogLayout() {
                 } flex items-center gap-2 hover:scale-105 interactive`}
               >
                 {category === 'AI' && '🤖'}
-                {category === 'Blockchain' && '⛓️'}
+                {category === 'MarTech' && '🔍'}
                 {category === 'DeFi' && '💸'}
                 {category === 'NFTs' && '🖼️'}
                 {category === 'Metaverse' && '🌌'}
@@ -617,7 +617,7 @@ function BlogCard({ post, index, hoveredCard, setHoveredCard, mouseX, mouseY }) 
           <div className="absolute top-3 left-3">
             <span className="px-3 py-1.5 bg-white/90 backdrop-blur-sm text-xs font-semibold text-gray-800 rounded-full shadow-sm flex items-center gap-1">
               {post.category === 'AI' && '🤖'}
-              {post.category === 'Blockchain' && '⛓️'}
+              {post.category === 'MarTech' && '🔍'}
               {post.category === 'DeFi' && '💸'}
               {post.category === 'NFTs' && '🖼️'}
               {post.category === 'Metaverse' && '🌌'}
