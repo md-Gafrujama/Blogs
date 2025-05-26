@@ -345,42 +345,42 @@ const shareOnLinkedIn = () => {
   </div>
 
   {/* Share Section */}
-  <div className="p-8  mt-6">
-    <p className="text-sm text-gray-600 mb-3">Share this article:</p>
+  <div className="p-8  mt-6 text-align-center">
+    <p className="text-lg text-gray-900 mb-3 font-semibold">Share this article:</p>
     <div className="flex flex-row space-x-3">
       <button
         onClick={shareOnLinkedIn}
-        className="cursor-pointer flex items-center justify-center gap-2 w-full bg-[#0A66C2] text-white font-semibold py-2 px-4 rounded-lg transition-colors hover:bg-[#004182]"
+        className="cursor-pointer bg-[#0A66C2] text-white font-semibold  px-4  transition-colors text-white rounded-lg hover:bg-[#004182] flex items-center justify-center gap-2"
       >
         {/* LinkedIn SVG */}
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
                       </svg>
-        Share on LinkedIn
+     
       </button>
       <button
         onClick={shareContent}
-        className="cursor-pointer flex items-center justify-center gap-2 w-full bg-[#ff8633] text-white font-semibold py-2 px-4 rounded-lg transition-colors hover:bg-[#e67a2e]"
+        className="cursor-pointer bg-[#0A66C2] text-white font-semibold  px-4  transition-colors text-white rounded-lg hover:bg-[#004182] flex items-center justify-center gap-2"
       >
         {/* Share SVG */}
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
                       </svg>
-        Share Article
+       
       </button>
       <button
         onClick={() => {
           navigator.clipboard.writeText(currentUrl);
           alert("Link copied to clipboard!");
         }}
-        className="cursor-pointer flex items-center justify-center gap-2 w-full bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg transition-colors hover:bg-gray-300"
+        className="cursor-pointer bg-[#0A66C2] text-white font-semibold  px-4  transition-colors text-white rounded-lg hover:bg-[#004182] flex items-center justify-center gap-2"
       >
         {/* Copy Link SVG */}
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
                         <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
                       </svg>
-        Copy Link
+     
       </button>
     </div>
   </div>
