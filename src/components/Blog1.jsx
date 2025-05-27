@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import WideDiv from './WideDiv';
+import Navbar from './Navbar';
 
 
 const Blog1 = () => {
@@ -15,7 +17,7 @@ const Blog1 = () => {
 
   // Improved LinkedIn sharing function
 const shareOnLinkedIn = () => {
-  const title = "How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey";
+  const title = "The AI Illusion: B2B Marketers Need Better Questions, Not More Hype";
   const summary = "Key insights on AI in B2B Marketing: 1) Bad Data = Bad AI - first-party data is critical, 2) Beware of AI-washing in vendor tools, 3) Targeting precision matters as budgets shrink.";
   const imageUrl = "/images/blog1.jpg"; // Ensure this image is accessible in your public folder or use a full URL
   const source = "Compare Bazaar";
@@ -81,7 +83,7 @@ const shareOnLinkedIn = () => {
   // Alternative sharing method using navigator.share API for mobile devices
   const shareContent = async () => {
     const title = "How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey";
-    const text = "Discover key insights on how B2B marketers should approach AI without falling for the hype. Read more about first-party data importance, AI-washing, and targeting precision.";
+    const text = "Making smart decisions in a noisy digital marketplace";
     
     try {
       if (navigator.share) {
@@ -138,11 +140,11 @@ const shareOnLinkedIn = () => {
 
   return (
 <>
-
+<Navbar/>
    <Helmet>
       <title>How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey</title>
       <meta property="og:title" content="How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey" />
-      <meta property="og:description" content="Key insights on AI in B2B Marketing: 1) Bad Data = Bad AI - first-party data is critical, 2) Beware of AI-washing in vendor tools, 3) Targeting precision matters as budgets shrink." />
+      <meta property="og:description" content="Making smart decisions in a noisy digital marketplace" />
       <meta property="og:image" content="./images/blog1.jpg" />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:type" content="article" />
@@ -151,104 +153,110 @@ const shareOnLinkedIn = () => {
     </Helmet>
 
 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="max-w-4xl mx-auto px-4 pt-10 pb-2 text-left ">
+    <div className="max-w-4xl mx-auto px-4 pt-10 pb-2 text-left">
       <h1 className="text-2xl md:text-4xl font-bold text-[#0A3761] mb-4 leading-tight">
-     How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journeye
-      </h1>
-
+        How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey
+      </h1> 
       <img
         src="/images/blog1.jpg"
         alt="AI Illusion B2B Marketing"
-        className="mx-auto rounded-lg shadow-lg mb-6 w-full max-w-full h-auto max-h-[500px] object-cover"
+        className="mx-auto rounded-lg shadow-lg mb-6 w-full max-w-full h-auto max-h-[500px] object cover"
       />
+      <i>Making smart decisions in a noisy digital marketplace</i>
+      <p class="mt-5">Let’s face it— <b>buying tech today isn’t easy.</b>
+Whether you’re a small business owner searching for the right VoIP system or an IT manager evaluating GPS fleet solutions, the options are endless, the jargon overwhelming, and every vendor claims to be the best.
+That’s why tech buyers today crave clarity over clever marketing. And that’s exactly where tools like comparison quotes, honest reviews, and expert content come into play.
+</p>
     </div>
+
+<div class="mt-7">
+<img
+    src="/images/blog1_img.jpg"
+    alt="AI Illusion B2B Marketing"
+    className="mx-auto rounded-lg  mb-6  max-w-400 h-auto max-h-[500px] object cover"
+/>
+</div>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white overflow-hidden">
           <div className="p-6 md:p-8">
             <p className="text-gray-900 text-3xl font-semibold tracking-wider mb-4">
-              Let's Talk About AI in B2B Marketing —
             </p>
             <h2 className="text-3xl font-semibold text-gray-900">
-              Minus the Hype
+              Step 1: The Realization — “We Need Something Better”
             </h2>
             <p className="text-gray-800 text-base leading-relaxed mt-5">
-              We need to talk about AI. Not the glossy, "next-gen" kind you see in vendor decks and flooding your inbox with promises of effortless pipeline growth. That version is exhausting and honestly, it's making it harder to spot what is actually useful.
+             Every tech buyer’s journey starts with a trigger. Maybe your team outgrew its payroll software. Maybe a service outage pushed you to explore alternatives. Or maybe you’re just trying to cut costs.
             </p>
             <p className="text-gray-800 text-base mt-5">
-              So we hosted a real conversation at Compare Bazaar. — Katrina Gonzalez led the discussion with Ben Luck (Chief Data Scientist) and Michael McGoldrick (Global VP of Marketing) on using AI and intent data without getting burned.
+              Whatever the reason, the next step is rarely, “Call a vendor.”
+              It’s usually:
+              <p class="mt-4"><b>✅ Search. Compare. Learn.</b></p>
+              And in that moment, having access to unbiased insights and real user feedback is everything.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white overflow-hidden">
           <div className="p-6 md:p-8">
-            <h2 className="text-3xl font-semibold text-gray-800">
-              Here's what stood out:
+            <p className="text-gray-900 text-3xl font-semibold tracking-wider mb-4">
+            </p>
+            <h2 className="text-3xl font-semibold text-gray-900">
+               Step 2: The Research Phase — From “What Is?” to “Which One?”
             </h2>
-          </div>
-
-          <div className="px-5 lg:px-20 space-y-6">
-            <div className="flex items-start">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  1. Bad Data = Bad AI
-                </h3>
-                <p className="pl-5 text-gray-700 mb-4">
-                  Ben said it best: <span className="italic">"You can't make good predictions with bad inputs."</span> If your AI is running on outdated, third-party data, you're not targeting - you're guessing. Bad data makes your AI blind.
-                </p>
-                <p className="pl-5 text-gray-700">
-                  First-party data is cleaner, fresher, and far more predictive. That's what gives AI the juice to spot who's actually in-market.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  2. Watch out for AI-washing
-                </h3>
-                <p className="pl-5 text-gray-800 mb-3">
-                  It's rules dressed up as rocket science.
-                </p>
-                <p className="pl-5 text-gray-800 mb-4">
-                  Michael called this out hard — and he's right. Too many vendors are just slapping "AI" on basic automation and hoping you won't ask questions. If a platform can't tell you how its models are trained or what data it learns from, chances are it's not real AI. 
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  3. Budgets are shrinking. Buying committees are growing.
-                </h3>
-                <p className="pl-5 text-gray-800 mb-4">
-                  Which means... your targeting must get smarter. You don't have the luxury of broad, generic campaigns anymore. You need relevance. Precision. Confidence that you're putting dollars behind the right accounts.
-                </p>
-                <p className="pl-5 text-gray-800">       
-                  That's where AI and behavioral intent data work best — but only when the data is real, and the model learns in real time. 
-                </p>
-              </div>
-            </div>
+            <p className="text-gray-800 text-base leading-relaxed mt-5">
+             This is the part where buyers become detectives. They read articles, compare feature lists, study customer reviews, and ask, “What does this actually do for me?”
+            </p>
+            <p className="text-gray-800 text-base mt-5">
+               That’s where <b>Compare-Bazaar.com</b> steps in.
+              <p class="mt-4">We provide:</p>
+              •	<b>Clear, side-by-side quotes</b> from multiple vendors<br></br>
+              •	<b>Real-time pricing visibility</b> (no hidden costs or fine print)<br></br>
+              •	<b>Educational articles</b> that answer the “dumb questions” no one wants to ask out loud<br></br>
+              •	<b>User reviews</b> that highlight pros, cons, and real-world experiences<br></br><br></br>
+              This stage is all about <b>building confidence,</b> not closing a sale.
+            </p>
           </div>
         </div>
       </div>
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white overflow-hidden">
+          <div className="p-6 md:p-8">
+            <p className="text-gray-900 text-3xl font-semibold tracking-wider mb-4">
+            </p>
+            <h2 className="text-3xl font-semibold text-gray-900">
+              Step 3: Decision Time — “Who Can I Trust With My Budget?”
+            </h2>
+            <p className="text-gray-800 text-base leading-relaxed mt-5">
+             Now that the shortlist is clear, it’s time to choose.
+            </p>
+            <p className="text-gray-800 text-base mt-5">
+              By now, the tech buyer has moved from confusion to clarity—and the final nudge often comes from a trusted quote comparison or a well-written article that explains the tech in plain English.
+              <p class="mt-4">It’s not about who shouts the loudest.<br></br>
+              It’s about who helps the most.
+              </p>
+            </p>
+          </div>
+        </div>
+      </div>
+
 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
         <div className="overflow-hidden">
           <div className="bg-white p-6">
             <h2 className="text-3xl font-semibold text-gray-900">
-              So, what now?
+              🔁 Bonus: A Better Way to Buy—Every Time
             </h2>
-            <p className="text-gray-800 mt-2">
-              If you're trying to figure out what to actually do with AI (and not just talk about it), start here:
+            <p className="text-gray-800 mt-4">
+              At Compare-Bazaar, we believe buyers deserve power in the purchasing process. That’s why we do what we do:
             </p>
             <div className="space-y-1 mt-3">
               <div className="flex items-start">
                 <div>
                   <h3 className="text-base text-gray-800">
-                    1. Use first-party data - it's your most valuable asset
+                  •	<b>No pressure.</b> Just free, side-by-side quotes.
                   </h3>
                 </div>
               </div>
@@ -256,7 +264,7 @@ const shareOnLinkedIn = () => {
               <div className="flex items-start">
                 <div>
                   <h3 className="text-base text-gray-800">
-                    2. Ask your vendors real questions about how their AI works 
+                    •	<b>No bias.</b> We don’t push one brand over another.
                   </h3>
                 </div>
               </div>
@@ -264,7 +272,7 @@ const shareOnLinkedIn = () => {
               <div className="flex items-start">
                 <div>
                   <h3 className="text-base text-gray-800">
-                    3. Ignore the buzzwords. Look for results.
+                    •	<b>No waste.</b> Only spend time on vendors that actually fit your needs.
                   </h3>
                 </div>
               </div>
@@ -282,30 +290,22 @@ const shareOnLinkedIn = () => {
       </h2>
       <div className="prose prose-lg md:prose-xl text-gray-700 mb-8">
         <p className="text-base leading-relaxed mb-6">
-          AI isn't the silver bullet — but it can give you a serious edge if you stay sharp. The marketers winning right now aren't chasing hype. They ask sharper questions, read clearer signals and use AI to scale what works.
-        </p>
+          The buyer’s journey is no longer a straight line from awareness to purchase. It’s a winding path filled with research, peer input, and self-education.</p>
         <p className="text-base leading-relaxed mb-6">
-          That's where we're focused at <span className="font-semibold text-[#ff8633]">Compare Bazaar</span>: fewer assumptions, smarter execution, and real outcomes.
+          And that’s okay.
         </p>
-        <p className="text-base leading-relaxed font-semibold text-gray-900">
-          Because in a world full of noise, clarity is your best competitive advantage.
+        <p className="text-base leading-relaxed  text-gray-700">
+          Because with the right tools—like comparison quotes, honest reviews, and helpful content—buyers make better decisions. And better decisions build better businesses.
+        </p>
+        <p class="mt-6"><b>🔗 Ready to compare quotes for your next tech investment?</b><br></br>
+        Visit Compare-Bazaar.com or reach us on <a>marketing@compare-bazaar.com</a> /Contactus@compare-bazaar.com. You can also call us on +1 332-231-0404 — where smart choices start.
         </p>
       </div>
-      <div className="flex flex-wrap gap-2 mt-4 mb-2">
-        {['AI Marketing', 'B2B Strategy', 'Data-Driven', 'Marketing Tech', 'First-Party Data'].map((tag) => (
-          <span 
-            key={tag}
-            className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800"
-          >
-            {tag}
-          </span>
-        ))}
       </div>
-    </div>
 </div>
 
 
-  {/* Subscribe Card */}
+ {/* Subscribe Card */}
   <div className="bg-white p-16 rounded-4xl shadow-lg border border-gray-500 max-w-xl mx-auto mt-5 ">
     <h3 className="text-3xl font-semibold text-gray-900 mb-4 text-center">
       Subscribe
@@ -383,6 +383,7 @@ const shareOnLinkedIn = () => {
 </div>
 </div>
 </div>
+<WideDiv/>
    </>
   );
 };

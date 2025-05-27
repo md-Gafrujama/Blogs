@@ -8,7 +8,7 @@ import FrontPage from './components/Frontpage';
      <Router>
       <Routes>
         <Route path="/" element={<FrontPage />} />
-        <Route path="/blog1" element={<Blog1/>} />
+        <Route path="/buyers-content-help" element={<Blog1/>} />
       </Routes>
     </Router>
    

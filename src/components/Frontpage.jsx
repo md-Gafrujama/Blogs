@@ -82,7 +82,7 @@ export default function BlogLayout() {
       readTime: "5 min read",
       category: "MarTech",
       imageUrl: "https://blogs.compare-bazaar.com/images/blog1.jpg",
-      slug: "/blog1",
+      slug: "/buyers-content-help",
       views: Math.floor(Math.random() * 500 + 100),
       likes: Math.floor(Math.random() * 200 + 50)
     },
