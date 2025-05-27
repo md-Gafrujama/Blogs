@@ -15,7 +15,7 @@ const Blog1 = () => {
 
   // Improved LinkedIn sharing function
 const shareOnLinkedIn = () => {
-  const title = "The AI Illusion: B2B Marketers Need Better Questions, Not More Hype";
+  const title = "How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey";
   const summary = "Key insights on AI in B2B Marketing: 1) Bad Data = Bad AI - first-party data is critical, 2) Beware of AI-washing in vendor tools, 3) Targeting precision matters as budgets shrink.";
   const imageUrl = "/images/blog1.jpg"; // Ensure this image is accessible in your public folder or use a full URL
   const source = "Compare Bazaar";
