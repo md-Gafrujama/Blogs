@@ -108,39 +108,7 @@ export default function BlogLayout() {
       views: Math.floor(Math.random() * 500 + 100),
       likes: Math.floor(Math.random() * 200 + 50)
     },
-    {
-      id: 4,
-      title: "Blockchain Security: Protecting Your Digital Assets",
-      date: "June 18, 2025",
-      readTime: "6 min read",
-      category: "Security",
-      imageUrl: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&h=300&fit=crop",
-      slug: "/blog/blockchain-security",
-      views: Math.floor(Math.random() * 500 + 100),
-      likes: Math.floor(Math.random() * 200 + 50)
-    },
-    {
-      id: 5,
-      title: "NFTs Beyond Art: Real World Applications",
-      date: "July 2, 2025",
-      readTime: "4 min read",
-      category: "NFTs",
-      imageUrl: "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=500&h=300&fit=crop",
-      slug: "/blog/nft-applications",
-      views: Math.floor(Math.random() * 500 + 100),
-      likes: Math.floor(Math.random() * 200 + 50)
-    },
-    {
-      id: 6,
-      title: "Metaverse Architecture: Designing Virtual Worlds",
-      date: "July 15, 2025",
-      readTime: "8 min read",
-      category: "Metaverse",
-      imageUrl: "https://images.unsplash.com/photo-1639762680859-68aa7a7285d3?w=500&h=300&fit=crop",
-      slug: "/blog/metaverse-design",
-      views: Math.floor(Math.random() * 500 + 100),
-      likes: Math.floor(Math.random() * 200 + 50)
-    }
+   
   ];
 
   const categories = ['All', 'AI', 'MarTech', 'DeFi', 'NFTs', 'Metaverse', 'Security', 'Gaming'];
