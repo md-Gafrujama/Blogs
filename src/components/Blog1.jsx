@@ -132,7 +132,7 @@ const Blog1 = () => {
           <img
             src="/images/blog1.jpg"
             alt="Tech buyer's journey"
-            className="mx-auto rounded-xl shadow-xl mb-8 w-full max-w-4xl aspect-[16/9] object-cover hover:scale-[1.01] transition-all duration-500 ease-out hover:shadow-2xl"
+            className="mx-auto rounded-xl shadow-xl mb-8 w-full max-w-4xl aspect-[13/6] object-cover hover:scale-[1.01] transition-all duration-500 ease-out hover:shadow-2xl"
           />
           
           <div className="bg-blue-50 border-l-4 border-[#0A3761] p-4 mb-8 rounded-r-lg">
