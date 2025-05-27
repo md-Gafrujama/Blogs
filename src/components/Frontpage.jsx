@@ -93,7 +93,7 @@ export default function BlogLayout() {
       readTime: "7 min read",
       category: "DeFi",
       imageUrl: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=500&h=300&fit=crop",
-      slug: "/blog/defi-future-banking",
+     slug: "/buyer-journey",
       views: Math.floor(Math.random() * 500 + 100),
       likes: Math.floor(Math.random() * 200 + 50)
     },
