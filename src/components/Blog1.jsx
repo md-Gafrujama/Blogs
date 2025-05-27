@@ -80,7 +80,7 @@ const shareOnLinkedIn = () => {
 
   // Alternative sharing method using navigator.share API for mobile devices
   const shareContent = async () => {
-    const title = "The AI Illusion: B2B Marketers Need Better Questions, Not More Hype";
+    const title = "How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey";
     const text = "Discover key insights on how B2B marketers should approach AI without falling for the hype. Read more about first-party data importance, AI-washing, and targeting precision.";
     
     try {
@@ -140,8 +140,8 @@ const shareOnLinkedIn = () => {
 <>
 
    <Helmet>
-      <title>The AI Illusion: B2B Marketers Need Better Questions, Not More Hype</title>
-      <meta property="og:title" content="The AI Illusion: B2B Marketers Need Better Questions, Not More Hype" />
+      <title>How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey</title>
+      <meta property="og:title" content="How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey" />
       <meta property="og:description" content="Key insights on AI in B2B Marketing: 1) Bad Data = Bad AI - first-party data is critical, 2) Beware of AI-washing in vendor tools, 3) Targeting precision matters as budgets shrink." />
       <meta property="og:image" content="./images/blog1.jpg" />
       <meta property="og:url" content={currentUrl} />
@@ -153,7 +153,7 @@ const shareOnLinkedIn = () => {
 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="max-w-4xl mx-auto px-4 pt-10 pb-2 text-left ">
       <h1 className="text-2xl md:text-4xl font-bold text-[#0A3761] mb-4 leading-tight">
-        The AI Illusion: B2B Marketers Need Better Questions, Not More Hype
+     How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journeye
       </h1>
 
       <img
