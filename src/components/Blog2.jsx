@@ -158,7 +158,7 @@ const shareOnLinkedIn = () => {
         Tech Buyer And Its Decision Making Journey.
       </h1> 
       <img
-        src="/images/blog1.jpg"
+        src="/images/blog2.png"
         alt="AI Illusion B2B Marketing"
         className="mx-auto rounded-lg shadow-lg mb-6 w-full max-w-full h-auto max-h-[500px] object cover"
       />
