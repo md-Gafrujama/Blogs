@@ -10,6 +10,7 @@ const Blog1 = () => {
   const [currentUrl, setCurrentUrl] = useState("");
   const [copied, setCopied] = useState(false);
   const [isVisible, setIsVisible] = useState(Array(5).fill(false));
+  const [showSubscribe, setShowSubscribe] = useState(false);
 
   useEffect(() => {
     setCurrentUrl(window.location.href);
@@ -125,7 +126,8 @@ const Blog1 = () => {
 
   return (
     <>
-      <Navbar/>
+    <Navbar />
+
       <Helmet>
         <title>How Comparison Quotes, Reviews, and Articles Help a Tech Buyer's Journey</title>
         <meta property="og:title" content="How Comparison Quotes, Reviews, and Articles Help a Tech Buyer's Journey" />
@@ -136,6 +138,79 @@ const Blog1 = () => {
         <meta property="og:site_name" content="Compare Bazaar" />
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
+
+      <button
+        className="fixed top-1/3 right-0 z-50 font-bold bg-orange-500 text-white px-4 py-5 rounded-l-lg shadow-lg hover:bg-orange-600 transition "
+        onClick={() => setShowSubscribe(true)}
+      >
+        Subscribe Now
+      </button>
+
+      {/* Slide-out Subscribe Form */}
+      <div
+        className={`fixed top-27  right-0  h-full w-80 bg-white shadow-2xl z-50 transform transition-transform duration-300 ${
+          showSubscribe ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        <div className="flex justify-between items-center p-4 border-b">
+        <h3 className="text-lg font-bold text-orange-600">Subscribe</h3> 
+
+          <button
+            className="text-gray-500 hover:text-orange-600 text-2xl"
+            onClick={() => setShowSubscribe(false)}
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </div>
+        <div className="px-4 pt-6 pb-2">
+          <h3 className="text-2xl font-bold text-center text-[#0A3761] mb-2 bg-gradient-to-r from-[#0A3761] to-blue-600 bg-clip-text text-transparent">
+            Stay Updated
+          </h3>
+          <p className="text-gray-600 text-center mb-4">
+            Subscribe to the very latest B2B lead gen updates — only the best bits, none of the fluff!
+          </p>
+        </div>
+
+        <form
+          className="p-4 space-y-4"
+          onSubmit={e => {
+            e.preventDefault();
+            handleSubscribe();      
+         }}
+        >
+        <div>
+          <label htmlFor="slideout-email" className="block text-sm font-medium text-gray-700 mb-1">
+            Email Address*
+          </label>
+          <input
+            className="w-full border rounded border-gray-300 px-3 py-2"
+            placeholder="Email Address"
+            type="email"
+            id="slideout-email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            disabled={loading}
+          />
+        </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600 transition"
+          >
+            {loading ? "Subscribing..." : subscribed ? "Subscribed!" : "Subscribe"}
+          </button>
+          {subscribed && (
+            <p className="text-green-600 text-sm text-center">Thank you for subscribing!</p>
+          )}
+          <p className="text-xs text-gray-500 text-center">
+            We respect your privacy. Unsubscribe at any time.
+          </p>
+        </form>
+      </div>
+
+
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
@@ -165,16 +240,17 @@ const Blog1 = () => {
           
           <div className="bg-blue-50 border-l-4 border-[#0A3761] p-4 mb-8 rounded-r-lg hover:shadow-md transition-shadow duration-300">
             <p className="italic text-gray-700 text-lg">
-              "Making smart decisions in a noisy digital marketplace"
+              "Empowering confident, cost-effective decisions in a crowded tech marketplace."
             </p>
           </div>
           
           <p className="text-lg leading-relaxed text-gray-700 mb-6">
-            Let's face it— <span className="font-bold text-[#0A3761] bg-yellow-100 px-1 rounded">buying tech today isn't easy.</span>
-            Whether you're a small business owner searching for the right VoIP system or an IT manager evaluating GPS fleet solutions, the options are endless, the jargon overwhelming, and every vendor claims to be the best.
-          </p>
+           Buying business tech today isn’t a simple task—it’s a journey. Whether you’re an IT manager searching for the right VoIP solution, or a procurement lead comparing fleet tracking vendors, one thing is clear: <b>modern B2B buyers want more than a sales pitch—they want clarity, confidence, and control.</b></p>
           <p className="text-lg leading-relaxed text-gray-700">
-            That's why tech buyers today crave clarity over clever marketing. And that's exactly where tools like comparison quotes, honest reviews, and expert content come into play.
+            That’s where <b>comparison quotes, customer reviews, and educational content</b> make all the difference.
+          </p>
+            <p className="text-lg mt-6 leading-relaxed text-gray-700">
+            At <b>Compare-Bazaar.com,</b> we’ve seen first-hand how these three elements can transform a tech buyer’s journey from “Where do I even start?” to “I know exactly what I need—and why.”
           </p>
         </div>
 
@@ -186,26 +262,37 @@ const Blog1 = () => {
                 1
               </div>
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
-                The Realization — "We Need Something Better"
+                Comparison Quotes: Clarity in a Sea of Options
               </h2>
             </div>
             <div className="pl-14">
               <p className="text-gray-700 text-lg leading-relaxed mb-4">
-                Every tech buyer's journey starts with a trigger. Maybe your team outgrew its payroll software. Maybe a service outage pushed you to explore alternatives. Or maybe you're just trying to cut costs.
-              </p>
+                When buyers are faced with dozens of similar-looking solutions, the ability to <b>compare accurate, side-by-side price quotes</b> is a game-changer.</p>
               <p className="text-gray-700 text-lg leading-relaxed">
-                Whatever the reason, the next step is rarely, "Call a vendor." It's usually:
+                It’s not just about who’s cheapest—it’s about seeing value clearly:
               </p>
               <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mt-4 hover:bg-blue-100 transition-colors duration-300">
                 <p className="font-semibold text-[#0A3761] flex items-center">
                   <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  Search. Compare. Learn.
+                  What features are included?
+                </p>
+                  <p className="font-semibold text-[#0A3761] flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  What does setup or support cost?
+                </p>
+                  <p className="font-semibold text-[#0A3761] flex items-center">
+                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Is it scalable? Secure? Worth the investment?
                 </p>
               </div>
               <p className="text-gray-700 text-lg leading-relaxed mt-4">
-                And in that moment, having access to unbiased insights and real user feedback is everything.
+                <b>Side-by-side quote comparisons</b> give buyers an instant snapshot of how different vendors stack up—saving time, reducing guesswork, and speeding up decisions.
               </p>
             </div>
           </div>
@@ -219,15 +306,16 @@ const Blog1 = () => {
                 2
               </div>
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
-                The Research Phase — From "What Is?" to "Which One?"
+                Real Customer Reviews: Building Trust Through Transparency
               </h2>
             </div>
             <div className="pl-14">
               <p className="text-gray-700 text-lg leading-relaxed mb-4">
-                This is the part where buyers become detectives. They read articles, compare feature lists, study customer reviews, and ask, "What does this actually do for me?"
+                Buyers trust buyers.<br></br>
+                According to Gartner, 84% of B2B buyers start the decision process by asking peers for recommendations or searching online reviews.
               </p>
               <p className="text-gray-700 text-lg leading-relaxed mb-4">
-                That's where <span className="font-bold text-[#0A3761]">Compare-Bazaar.com</span> steps in.
+                That’s why <span className="font-bold text-[#0A3761]">real, verified user reviews </span>are critical:
               </p>
               
               <div className="grid md:grid-cols-2 gap-4 mb-6">
@@ -236,18 +324,17 @@ const Blog1 = () => {
                     <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2H5a1 1 0 01-1-1V4zm3 1h2v2H7V5zm4 0h2v2h-2V5zm-4 4h2v2H7V9zm4 0h2v2h-2V9z" clipRule="evenodd" />
                     </svg>
-                    Clear, side-by-side quotes
+                    They highlight real-world pros and cons
                   </h3>
-                  <p className="text-gray-600">From multiple vendors with no hidden costs</p>
                 </div>
                 <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 hover:shadow-md transition-all duration-300 group">
                   <h3 className="font-semibold text-[#0A3761] mb-2 flex items-center group-hover:text-blue-700 transition-colors">
                     <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                     </svg>
-                    Educational articles
+                    They expose issues that might not be on the sales page
                   </h3>
-                  <p className="text-gray-600">That answer the "dumb questions" no one asks</p>
+                  <p className="text-gray-600"></p>
                 </div>
                 <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 hover:shadow-md transition-all duration-300 group">
                   <h3 className="font-semibold text-[#0A3761] mb-2 flex items-center group-hover:text-blue-700 transition-colors">
@@ -255,23 +342,15 @@ const Blog1 = () => {
                       <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                       <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
                     </svg>
-                    Real user reviews
+                    They help buyers validate their instincts and narrow their shortlist
                   </h3>
-                  <p className="text-gray-600">Highlighting pros, cons, and real-world experiences</p>
+                  <p className="text-gray-600"></p>
                 </div>
-                <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 hover:shadow-md transition-all duration-300 group">
-                  <h3 className="font-semibold text-[#0A3761] mb-2 flex items-center group-hover:text-blue-700 transition-colors">
-                    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    Confidence building
-                  </h3>
-                  <p className="text-gray-600">Not sales pressure</p>
-                </div>
+
               </div>
               
               <p className="text-gray-700 text-lg leading-relaxed">
-                This stage is all about <span className="font-bold text-[#0A3761]">building confidence,</span> not closing a sale.
+                At Compare-Bazaar, we integrate user feedback into the comparison experience—so you’re not just seeing what the vendor says, but what real users have experienced.
               </p>
             </div>
           </div>
@@ -285,24 +364,29 @@ const Blog1 = () => {
                 3
               </div>
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
-                Decision Time — "Who Can I Trust With My Budget?"
+                Helpful Articles & Guides: Confidence Through Content
               </h2>
             </div>
             <div className="pl-14">
               <p className="text-gray-700 text-lg leading-relaxed mb-4">
-                Now that the shortlist is clear, it's time to choose.
+                Tech buyers today don’t want to be sold—they want to be supported.
               </p>
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
-                By now, the tech buyer has moved from confusion to clarity—and the final nudge often comes from a trusted quote comparison or a well-written article that explains the tech in plain English.
+                Educational content like buying guides, explainer articles, and comparison checklists empower decision-makers with the <b>knowledge to ask the right questions </b>and avoid common pitfalls.
               </p>
               
               <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg mb-6 hover:shadow-md transition-shadow duration-300">
                 <p className="font-semibold text-gray-800">
-                  It's not about who shouts the loudest.
+                  •	“Top 5 Things to Look for in a Fleet Management System”
                   <br />
-                  It's about who helps the most.
+                  •	“VoIP vs. Traditional Phone: What’s Right for Your Business?”
+                  <br></br>
+                  •	“The B2B Buyer’s Guide to Understanding BANT Qualification”
                 </p>
               </div>
+              <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                These articles help build <b>brand authority</b> while genuinely helping the reader.
+              </p>
             </div>
           </div>
           
@@ -325,10 +409,10 @@ const Blog1 = () => {
         <div className={`max-w-4xl mx-auto px-4 py-8 animate-section transition-all duration-1000 delay-400 ${isVisible[4] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="bg-gradient-to-r from-[#0A3761] to-blue-700 p-6 md:p-8 rounded-xl text-white shadow-lg hover:shadow-xl transition-shadow duration-300">
             <h2 className="text-2xl md:text-3xl font-bold mb-6">
-              <span className="inline-block mr-2 animate-bounce">🔁</span> A Better Way to Buy—Every Time
+              <span className="inline-block mr-2 animate-bounce">🔁</span> The Results: A Better Buying Experience for All
             </h2>
             <p className="text-blue-100 mb-6">
-              At Compare-Bazaar, we believe buyers deserve power in the purchasing process. That's why we do what we do:
+              By combining quotes, reviews, and content, Compare-Bazaar supports tech buyers across every stage of their journey:
             </p>
             
             <div className="space-y-4">
@@ -339,8 +423,8 @@ const Blog1 = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg">No pressure.</h3>
-                  <p className="text-blue-100">Just free, side-by-side quotes.</p>
+                  <h3 className="font-semibold text-lg">Awareness: </h3>
+                  <p className="text-blue-100">Educational articles attract and inform.</p>
                 </div>
               </div>
               
@@ -351,8 +435,8 @@ const Blog1 = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg">No bias.</h3>
-                  <p className="text-blue-100">We don't push one brand over another.</p>
+                  <h3 className="font-semibold text-lg">Evaluation:</h3>
+                  <p className="text-blue-100">Quotes and reviews clarify the landscape.</p>
                 </div>
               </div>
               
@@ -363,11 +447,14 @@ const Blog1 = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg">No waste.</h3>
-                  <p className="text-blue-100">Only spend time on vendors that actually fit your needs.</p>
+                  <h3 className="font-semibold text-lg">Decision: </h3>
+                  <p className="text-blue-100">Confidence and trust convert interest into action.</p>
                 </div>
               </div>
             </div>
+            <p className="text-blue-100 mb-6 mt-4">
+              In a B2B world where <b>every click, conversation, and comparison matters,</b> we believe that empowering the buyer is the most valuable service of all.
+            </p>
           </div>
         </div>
 
@@ -375,19 +462,14 @@ const Blog1 = () => {
         <div className="max-w-4xl mx-auto px-4 py-8">
           <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100">
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
-              Final Thoughts
+              Final Thought: Make Informed Tech Decisions—Every Time
             </h2>
             
             <div className="prose prose-lg max-w-none text-gray-700">
               <p className="mb-6">
-                The buyer's journey is no longer a straight line from awareness to purchase. It's a winding path filled with research, peer input, and self-education.
+                No matter where you are in your buying journey—just starting to explore or ready to decide—<b>Compare-Bazaar.com</b> gives you the tools to move forward with clarity, confidence, and control.
               </p>
-              <p className="mb-6">
-                And that's okay.
-              </p>
-              <p className="mb-8">
-                Because with the right tools—like comparison quotes, honest reviews, and helpful content—buyers make better decisions. And better decisions build better businesses.
-              </p>
+
               
               <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-300">
                 <p className="font-bold text-lg text-[#0A3761] mb-3">
@@ -532,7 +614,6 @@ const Blog1 = () => {
   </div>
 </div>
       </div>
-      
       <WideDiv/>
     </>
   );

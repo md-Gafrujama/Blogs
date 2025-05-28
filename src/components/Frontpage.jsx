@@ -127,7 +127,7 @@ export default function BlogLayout() {
       <Navbar />
       <div className="min-h-screen bg-gray-50">
         {/* Enhanced Hero Section with Interactive Effects */}
-        <div 
+        {/* <div 
           ref={heroRef}
           className="relative py-16 lg:py-32 overflow-hidden bg-gradient-to-br from-[#000e54] via-[#1a237e] to-[#303f9f]"
           style={{
@@ -135,7 +135,15 @@ export default function BlogLayout() {
             '--mouse-x': mouseX,
             '--mouse-y': mouseY
           }}
-        >
+        > */}
+        <div 
+  ref={heroRef}
+  className="relative py-16 lg:py-32 overflow-hidden bg-gradient-to-br from-[#000e54] via-[#1a237e] to-[#303f9f]"
+  style={{
+    '--mouse-x': mouseX,
+    '--mouse-y': mouseY
+  }}
+>
           {/* Dynamic gradient that follows mouse */}
           <div className="absolute inset-0 overflow-hidden opacity-80">
             <div 
