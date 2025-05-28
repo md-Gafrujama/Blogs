@@ -141,16 +141,14 @@ const shareOnLinkedIn = () => {
   return (
 <>
 <Navbar />
-   <Helmet>
-      <title>Tech Buyer And Its Decision Making Journey.</title>
-      <meta property="og:title" content="How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey" />
-      <meta property="og:description" content="Making smart decisions in a noisy digital marketplace" />
-      <meta property="og:image" content="./images/blog1.jpg" />
-      <meta property="og:url" content={currentUrl} />
-      <meta property="og:type" content="article" />
-      <meta property="og:site_name" content="Compare Bazaar" />
-      <meta name="twitter:card" content="summary_large_image" />
-    </Helmet>
+    <Helmet>
+        <title>Tech Buyer Decision Making Journey</title>
+        <meta property="og:title" content="Tech Buyer And Its Decision Making Journey" />
+        <meta property="og:description" content="Explore tech buyer decision making process." />
+        <meta property="og:image" content="https://blogs.compare-bazaar.com/images/blog2.png" />
+        <meta property="og:url" content="https://blogs.compare-bazaar.com/buyer-journey" />
+        <meta property="og:type" content="website" />
+      </Helmet>
 
 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="max-w-4xl mx-auto px-4 pt-10 pb-2 text-left">
