@@ -41,7 +41,7 @@ const Blog2 = () => {
     // Open Graph meta tags
     updateMetaTag('og:title', 'Tech Buyer And Its Decision Making Journey.');
     updateMetaTag('og:description', 'Making smart decisions in a noisy digital marketplace. A comprehensive guide to understanding the B2B tech buyer journey and decision-making process.');
-    updateMetaTag('og:image', `${window.location.origin}/images/blog2.webp`);
+    updateMetaTag('og:image', `${window.location.origin}https://blogs.compare-bazaar.com/images/blog2.webp`);
     updateMetaTag('og:url', window.location.href);
     updateMetaTag('og:type', 'article');
     updateMetaTag('og:site_name', 'Compare Bazaar');
