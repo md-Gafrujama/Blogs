@@ -129,14 +129,11 @@ const Blog1 = () => {
     <Navbar />
 
       <Helmet>
-        <title>How Comparison Quotes, Reviews, and Articles Help a Tech Buyer's Journey</title>
-        <meta property="og:title" content="How Comparison Quotes, Reviews, and Articles Help a Tech Buyer's Journey" />
-        <meta property="og:description" content="Making smart decisions in a noisy digital marketplace" />
-        <meta property="og:image" content="./images/blog1.jpg" />
-        <meta property="og:url" content={currentUrl} />
-        <meta property="og:type" content="article" />
-        <meta property="og:site_name" content="Compare Bazaar" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:title" content="How Comparison Quotes, Reviews, and Articles Help a Tech Buyer’s Journey" />
+       <meta property="og:description" content="Shorten and share your URLs instantly with Bugg." />
+      <meta property="og:image" content="https://blogs.compare-bazaar.com/images/blog1.jpg" />
+      <meta property="og:url" content="https://blogs.compare-bazaar.com/buyers-content-help" />
+      <meta property="og:type" content="website" />
       </Helmet>
 
       <button
