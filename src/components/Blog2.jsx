@@ -142,11 +142,20 @@ const Blog2 = () => {
       <Navbar />
       <Helmet>
         <title>Tech Buyer Decision Making Journey</title>
+        <meta name="description" content="Understanding the 5-phase tech buyer journey from trigger to decision. Learn how B2B marketers can better connect with real buyers navigating complex technology decisions." />
         <meta property="og:title" content="Tech Buyer And Its Decision Making Journey" />
-        <meta property="og:description" content="Explore tech buyer decision making process." />
+        <meta property="og:description" content="Understanding the 5-phase tech buyer journey from trigger to decision. Learn how B2B marketers can better connect with real buyers navigating complex technology decisions." />
         <meta property="og:image" content="https://blogs.compare-bazaar.com/images/blog2.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Tech Buyer Decision Making Journey" />
         <meta property="og:url" content="https://blogs.compare-bazaar.com/buyer-journey" />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Compare Bazaar" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Tech Buyer And Its Decision Making Journey" />
+        <meta name="twitter:description" content="Understanding the 5-phase tech buyer journey from trigger to decision. Learn how B2B marketers can better connect with real buyers navigating complex technology decisions." />
+        <meta name="twitter:image" content="https://blogs.compare-bazaar.com/images/blog2.png" />
       </Helmet>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
