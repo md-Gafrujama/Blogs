@@ -14,47 +14,6 @@ const Blog2 = () => {
   useEffect(() => {
     setCurrentUrl(window.location.href);
     
-    // Set document title and meta tags
-    document.title = "Tech Buyer And Its Decision Making Journey.";
-    
-    // Create or update meta tags
-    const updateMetaTag = (property, content) => {
-      let meta = document.querySelector(`meta[property="${property}"]`);
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.setAttribute('property', property);
-        document.head.appendChild(meta);
-      }
-      meta.setAttribute('content', content);
-    };
-
-    const updateMetaTagName = (name, content) => {
-      let meta = document.querySelector(`meta[name="${name}"]`);
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.setAttribute('name', name);
-        document.head.appendChild(meta);
-      }
-      meta.setAttribute('content', content);
-    };
-
-    // Open Graph meta tags
-    updateMetaTag('og:title', 'Tech Buyer And Its Decision Making Journey.');
-    updateMetaTag('og:description', 'Making smart decisions in a noisy digital marketplace. A comprehensive guide to understanding the B2B tech buyer journey and decision-making process.');
-    updateMetaTag('og:image', `${window.location.origin}https://blogs.compare-bazaar.com/images/blog2.webp`);
-    updateMetaTag('og:url', window.location.href);
-    updateMetaTag('og:type', 'article');
-    updateMetaTag('og:site_name', 'Compare Bazaar');
-    
-    // Twitter Card meta tags
-    updateMetaTagName('twitter:card', 'summary_large_image');
-    updateMetaTagName('twitter:title', 'Tech Buyer And Its Decision Making Journey.');
-    updateMetaTagName('twitter:description', 'Making smart decisions in a noisy digital marketplace. A comprehensive guide to understanding the B2B tech buyer journey and decision-making process.');
-    updateMetaTagName('twitter:image', `${window.location.origin}/images/blog2.webp`);
-    
-    // Standard meta description
-    updateMetaTagName('description', 'Making smart decisions in a noisy digital marketplace. A comprehensive guide to understanding the B2B tech buyer journey and decision-making process.');
-    
     // Intersection Observer for scroll animations
     const observer = new IntersectionObserver(
       (entries) => {
@@ -163,20 +122,28 @@ const Blog2 = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
   
 
   return (
     <>
       <Navbar/>
-    
-      {/* <title>Tech Buyer And Its Decision Making Journey.</title>
+       {/* Add these meta tags at the top of your component */}
       <meta property="og:title" content="Tech Buyer And Its Decision Making Journey." />
-      <meta property="og:description" content="Making smart decisions in a noisy digital marketplace" />
-      <meta property="og:image" content="./images/blog2.webp" />
-      <meta property="og:url" content={currentUrl} />
+      <meta property="og:description" content="Making smart decisions in a noisy digital marketplace. A comprehensive guide to understanding the B2B tech buyer journey and decision-making process." />
+      <meta property="og:image" content={`${window.location.origin}https://blogs.compare-bazaar.com/images/blog2.webp`} />
+      <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : ''} />
       <meta property="og:type" content="article" />
       <meta property="og:site_name" content="Compare Bazaar" />
-      <meta name="twitter:card" content="summary_large_image" /> */}
+      
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Tech Buyer And Its Decision Making Journey." />
+      <meta name="twitter:description" content="Making smart decisions in a noisy digital marketplace. A comprehensive guide to understanding the B2B tech buyer journey and decision-making process." />
+      <meta name="twitter:image" content={`${window.location.origin}/images/blog2.webp`} />
+      
+      <title>Tech Buyer And Its Decision Making Journey.</title>
+      <meta name="description" content="Making smart decisions in a noisy digital marketplace. A comprehensive guide to understanding the B2B tech buyer journey and decision-making process." />
+
 
       <button
         className="fixed top-1/3 right-0 z-50 font-bold bg-orange-500 text-white px-4 py-5 rounded-l-lg shadow-lg hover:bg-orange-600 transition"
