@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import WideDiv from './WideDiv';
 import Navbar from './Navbar';
+
 const Blog2 = () => {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -125,17 +125,17 @@ const Blog2 = () => {
 
   return (
     <>
-    <Navbar/>
-      <Helmet>
-        <title>Tech Buyer And Its Decision Making Journey.</title>
-        <meta property="og:title" content="Tech Buyer And Its Decision Making Journey." />
-        <meta property="og:description" content="Making smart decisions in a noisy digital marketplace" />
-        <meta property="og:image" content="./images/blog2.jpg" />
-        <meta property="og:url" content={currentUrl} />
-        <meta property="og:type" content="article" />
-        <meta property="og:site_name" content="Compare Bazaar" />
-        <meta name="twitter:card" content="summary_large_image" />
-      </Helmet>
+      <Navbar/>
+      
+      {/* React 19 native meta tags - no Helmet needed */}
+      <title>Tech Buyer And Its Decision Making Journey.</title>
+      <meta property="og:title" content="Tech Buyer And Its Decision Making Journey." />
+      <meta property="og:description" content="Making smart decisions in a noisy digital marketplace" />
+      <meta property="og:image" content="./images/blog2.webp" />
+      <meta property="og:url" content={currentUrl} />
+      <meta property="og:type" content="article" />
+      <meta property="og:site_name" content="Compare Bazaar" />
+      <meta name="twitter:card" content="summary_large_image" />
 
       <button
         className="fixed top-1/3 right-0 z-50 font-bold bg-orange-500 text-white px-4 py-5 rounded-l-lg shadow-lg hover:bg-orange-600 transition"
