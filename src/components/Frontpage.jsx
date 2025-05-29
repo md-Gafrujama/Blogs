@@ -88,11 +88,11 @@ export default function BlogLayout() {
     },
     {
       id: 2,
-      title: "Decentralized Finance: The Future of Banking",
-      date: "May 12, 2025",
+      title: "Tech Buyer And Its Decision Making Journey.",
+      date: "May 12, 2024",
       readTime: "7 min read",
       category: "DeFi",
-      imageUrl: "/images/blog2.png",
+      imageUrl: "/images/blog2.webp",
      slug: "/buyer-journey",
       views: Math.floor(Math.random() * 500 + 100),
       likes: Math.floor(Math.random() * 200 + 50)

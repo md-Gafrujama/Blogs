@@ -218,7 +218,7 @@ const Blog2 = () => {
               Tech Buyer And Its Decision Making Journey.
             </h1>
             <div className="flex items-center text-gray-500 text-sm mb-6">
-              <span>Published on May 29, 2025</span>
+              <span>Published on May 12, 2024</span>
               <span className="mx-2">•</span>
               <span>5 min read</span>
             </div>
