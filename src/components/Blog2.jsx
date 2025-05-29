@@ -84,28 +84,34 @@ const Blog2 = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Tech Buyer Decision Making Journey | Compare Bazaar</title>
-        <meta name="description" content="Explore the complete tech buyer decision making process and how to navigate it effectively." />
-        
-        {/* Primary Meta Tags */}
-        <meta property="og:title" content="Tech Buyer And Its Decision Making Journey" />
-        <meta property="og:description" content="Making smart decisions in a noisy digital marketplace - explore the complete buyer journey." />
-        <meta property="og:image" content="https://blogs.compare-bazaar.com/images/blog2.png" />
-        <meta property="og:url" content="https://blogs.compare-bazaar.com/buyer-journey" />
-        <meta property="og:type" content="website" />
-        
-        {/* Twitter Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Tech Buyer And Its Decision Making Journey" />
-        <meta name="twitter:description" content="Making smart decisions in a noisy digital marketplace" />
-        <meta name="twitter:image" content="https://blogs.compare-bazaar.com/images/blog2.png" />
-        
-        {/* Additional Meta Tags */}
-        <meta name="author" content="Compare Bazaar" />
-        <meta name="keywords" content="tech buyer, decision making, B2B marketing, technology purchase" />
-        <link rel="canonical" href="https://blogs.compare-bazaar.com/buyer-journey" />
-      </Helmet>
+     <Helmet>
+  {/* Primary Meta Tags */}
+  <title>Tech Buyer Decision Making Journey | Compare Bazaar</title>
+  <meta name="description" content="Explore the complete tech buyer decision making process and how to navigate it effectively." />
+  
+  {/* Open Graph / Facebook Meta Tags */}
+  <meta property="og:title" content="Tech Buyer And Its Decision Making Journey" />
+  <meta property="og:description" content="Making smart decisions in a noisy digital marketplace - explore the complete buyer journey." />
+  <meta property="og:image" content="https://blogs.compare-bazaar.com/images/blog2.png" />
+  <meta property="og:url" content="https://blogs.compare-bazaar.com/buyer-journey" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Compare Bazaar" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  
+  {/* Twitter Meta Tags */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tech Buyer And Its Decision Making Journey" />
+  <meta name="twitter:description" content="Making smart decisions in a noisy digital marketplace" />
+  <meta name="twitter:image" content="https://blogs.compare-bazaar.com/images/blog2.png" />
+  <meta name="twitter:site" content="@CompareBazaar" />
+  <meta name="twitter:creator" content="@CompareBazaar" />
+  
+  {/* Additional Meta Tags */}
+  <meta name="author" content="Compare Bazaar" />
+  <meta name="keywords" content="tech buyer, decision making, B2B marketing, technology purchase" />
+  <link rel="canonical" href="https://blogs.compare-bazaar.com/buyer-journey" />
+</Helmet>
 
       <Navbar />
 
